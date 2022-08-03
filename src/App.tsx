@@ -1,26 +1,40 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {Header} from "./componets/Header/Header";
+import {Navbar} from "./componets/Navbar/Navbar";
+import {Profile} from "./componets/Profile/Profile";
+import {Dialogs} from "./componets/Dialogs/Dialogs";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {NewPosts} from "./componets/NewPosts/NewPosts";
+import {Music} from "./componets/Music/Music";
+import {Settings} from "./componets/Settings/Settings";
+import {RootStateType} from "./redux/state";
+import Friends from "./componets/Friends/Friends";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+type appPropsType = {
+    state: RootStateType
+}
+
+
+function App(props: appPropsType) {
+    return (
+        <BrowserRouter>
+            <div className={'app-wrapper'}>
+                <Header/>
+                <Navbar navBarState={props.state.navBarPage}
+                        friendsState={props.state.friendsPage}/>
+                <div className={'app-wrapper-content'}>
+                    <Routes>
+                        <Route  path="/profile/*" element={<Profile posts={props.state.profilePage.posts}/>}/>
+                        <Route  path="/dialogs/*" element={<Dialogs dialogsPage={props.state.dialogsPage}/>}/>
+                        <Route  path={'/posts/*'} element={<NewPosts/>}/>
+                        <Route  path={'/music/*'} element={<Music/>}/>
+                        <Route  path={'/settings/*'} element={<Settings/>}/>
+                    </Routes>
+                </div>
+            </div>
+        </BrowserRouter>
+    );
 }
 
 export default App;
