@@ -13,6 +13,7 @@ import Friends from "./componets/Friends/Friends";
 
 type appPropsType = {
     state: RootStateType
+    addPosts: (postMessage: string) => void
 }
 
 
@@ -25,7 +26,7 @@ function App(props: appPropsType) {
                         friendsState={props.state.friendsPage}/>
                 <div className={'app-wrapper-content'}>
                     <Routes>
-                        <Route  path="/profile/*" element={<Profile posts={props.state.profilePage.posts}/>}/>
+                        <Route  path="/profile/*" element={<Profile posts={props.state.profilePage.posts} addPosts={props.addPosts}/>}/>
                         <Route  path="/dialogs/*" element={<Dialogs dialogsPage={props.state.dialogsPage}/>}/>
                         <Route  path={'/posts/*'} element={<NewPosts/>}/>
                         <Route  path={'/music/*'} element={<Music/>}/>

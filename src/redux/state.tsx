@@ -81,3 +81,9 @@ export let state = {
         ]
     }
 }
+
+export let addPosts = (postMessage: string) => {
+
+    let newPost = {message: postMessage, countLike: 0 }
+    state.profilePage.posts.push(newPost)
+}
