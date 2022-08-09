@@ -5,8 +5,7 @@ import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {PostPropsType} from "./MyPosts/Post/Post";
 
 type PostsPropsType = {
-    posts: Array<PostPropsType>
-    addPosts: (postMessage: string) => void
+    store: any
 }
 
 
@@ -14,7 +13,7 @@ export const Profile: React.FC<PostsPropsType> = (props) => {
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts posts={props.posts} addPosts={props.addPosts}/>
+            <MyPosts store={props.store}/>
         </div>
     )
 }

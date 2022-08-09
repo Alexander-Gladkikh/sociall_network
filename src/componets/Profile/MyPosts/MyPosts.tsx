@@ -1,11 +1,9 @@
 import React from "react";
 import s from './MyPosts.module.css'
-import {PostPropsType, Posts} from "./Post/Post";
-import {addPosts} from "../../../redux/state";
+import { Posts} from "./Post/Post";
 
 type MyPostsPropsType = {
-    posts: Array<PostPropsType>
-    addPosts: (postMessage: string) => void
+    store: any
 }
 
 export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
@@ -14,15 +12,15 @@ export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
 
     let addText = () => {
         let text: string = newPostElement.current.value
-        props.addPosts(text)
+        props.store.setAddPosts(text)
 
     }
 
-    let postsElement = props.posts.map( p => <Posts message={p.message} countLike={p.countLike}/>)
+    let postsElement = props.store._state.profilePage.posts.map( (p: any) => <Posts message={p.message} countLike={p.countLike}/>)
     return (
         <>
             <div className={`${s.item} ${s.active}`}>My Posts</div>
-            <textarea ref={newPostElement}></textarea>
+            <textarea ref={newPostElement}/>
             <button onClick={addText}>Add post</button>
 
             {postsElement}
