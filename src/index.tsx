@@ -5,21 +5,23 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import {store} from "./store";
 
-export let rerender = (store: any) => {
+export let rerenderEntireTree = (state: any) => {
     const root = ReactDOM.createRoot(
         document.getElementById('root') as HTMLElement
     );
 
     root.render(
         <React.StrictMode>
-            <App state={store._state} addPos/>
+            <App state={state}
+                 addPost={store.addPost.bind(store)}
+                 updateNewPostText={store.updateNewPostText.bind(store)}/>
         </React.StrictMode>
     );
 }
 
-store.subscribe(rerender)
+rerenderEntireTree(store.getState())
 
-rerender(store)
+store.subscribe(rerenderEntireTree)
 
 
 

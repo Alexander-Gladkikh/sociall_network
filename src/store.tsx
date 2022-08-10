@@ -1,3 +1,4 @@
+
 export type RootStateType= {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
@@ -81,26 +82,30 @@ export let store = {
             ]
         }
     },
-    rerenderEntireTree() {
+    getState() {
+        return this._state;
+    },
+    _callSubscriber(state:RootStateType) {
         console.log('State changed')
     },
-    addPost(postMessage: string) {
-        const newPost = {message: postMessage, countLike: 0 }
-        this._state.profilePage.posts.push(newPost)
-        this._subscriber()
+    addPost() {
+        let newPost = {
+            id: 5,
+            message: this._state.profilePage.newPostText,
+            countLike: 0 }
+        this._state.profilePage.posts.push(newPost);
+        this._state.profilePage.newPostText = '';
+       this._callSubscriber(this._state);
     },
     updateNewPostText(newText: string) {
-        state.profilePage.newPostText = newText;
-        rerenderEntireTree(state);
+        this._state.profilePage.newPostText = newText;
+        this._callSubscriber(this._state);
     },
-    _subscriber() {
-        console.log('no subscribers (observers)')
+    subscribe(observer: any) {
+        this._callSubscriber = observer;
     },
 }
 
-export default store
 
-//window.store = store;
-// store._state
 
 
