@@ -1,14 +1,23 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
+import {ActionsTypes, addMessageAC, RootStateType, updateNewMessageBodyAC} from "../../../redux/state";
 
-export const AddMessage: React.FC = () => {
-    let newMessageElement: any = React.createRef()
-    let addMessage = () => {
-        let message = newMessageElement.current.value
-        alert(message)
+type PropsType = {
+    message: string
+    dispatch:(action: ActionsTypes) => void
+}
+
+export const AddMessage: React.FC<PropsType> = (props ) => {
+
+    const addMessage = () => {
+        props.dispatch(addMessageAC(props.message))
+    }
+
+    const changeMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.dispatch(updateNewMessageBodyAC(e.currentTarget.value))
     }
     return (
         <div>
-            <textarea ref={newMessageElement}></textarea>
+            <textarea value={props.message} onChange={changeMessage}></textarea>
             <button onClick={addMessage}>Add Message</button>
         </div>
 
