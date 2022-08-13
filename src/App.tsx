@@ -11,14 +11,14 @@ import { store, StoreType} from "./redux/state";
 
 
 type appPropsType = {
-    store: StoreType
+    store: any
 }
 
 
 function App(props: appPropsType) {
     const state = props.store.getState();
     return (
-        <BrowserRouter>
+
             <div className={'app-wrapper'}>
                 <Header/>
                 <Navbar state={state} />
@@ -32,7 +32,7 @@ function App(props: appPropsType) {
                     </Routes>
                 </div>
             </div>
-        </BrowserRouter>
+
     );
 }
 

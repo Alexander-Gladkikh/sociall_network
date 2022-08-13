@@ -5,7 +5,6 @@ import {navbarReducer} from "./navbar-reducer";
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
-    friendsPage: FriendsPageType
     navBarPage: NavBarPageType
 }
 export type ProfilePageType = {
@@ -30,15 +29,13 @@ export type MessagesType = {
     id: number
     message: string
 }
-export type FriendsPageType = {
-    friends: FriendsType[]
-}
 export type FriendsType = {
     id: string
     name: string
 }
 export type NavBarPageType = {
     titlePage: NavBarType[]
+    friends: FriendsType[]
 }
 export type NavBarType = {
     id: string
@@ -110,13 +107,6 @@ export let store: StoreType = {
             ],
             newMessageBody: '',
         },
-        friendsPage: {
-            friends: [
-                {id: '1', name: 'Andrew'},
-                {id: '2', name: 'Sasha'},
-                {id: '3', name: 'Sveta'},
-            ]
-        },
         navBarPage: {
             titlePage: [
                 {id: '1', title: 'Profile', link: '/profile'},
@@ -125,6 +115,11 @@ export let store: StoreType = {
                 {id: '4', title: 'Music', link: '/music'},
                 {id: '5', title: 'Settings', link: '/settings'},
                 {id: '6', title: 'Friends', link: '/friends'},
+            ],
+            friends: [
+                {id: '1', name: 'Andrew'},
+                {id: '2', name: 'Sasha'},
+                {id: '3', name: 'Sveta'},
             ]
         }
     },

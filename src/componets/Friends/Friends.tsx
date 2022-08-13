@@ -1,14 +1,14 @@
 import React from 'react';
-import {FriendsPageType} from "../../redux/state";
+import { FriendsType} from "../../redux/state";
 
 type FriendsPropsType = {
-    friendsState: FriendsPageType
+    friendsState: FriendsType[]
 }
 
 const Friends: React.FC<FriendsPropsType> = (props) => {
     return (
         <div>
-            {props.friendsState.friends.map(el => {
+            {props.friendsState.map(el => {
                 return (
                     <div key={el.id}>
                         <div className={'friendsAvatar'}></div>

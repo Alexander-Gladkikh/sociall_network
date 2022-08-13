@@ -18,7 +18,7 @@ export const Navbar:React.FC<NavbarPropsType> = (props) => {
                     </div>
                 )
             })}
-            <Friends friendsState={props.state.friendsPage}/>
+            <Friends friendsState={props.state.navBarPage.friends}/>
         </nav>
     )
 }
