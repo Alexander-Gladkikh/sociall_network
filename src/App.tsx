@@ -3,12 +3,11 @@ import './App.css';
 import {Header} from "./componets/Header/Header";
 import {Navbar} from "./componets/Navbar/Navbar";
 import {Profile} from "./componets/Profile/Profile";
-import {Dialogs} from "./componets/Dialogs/Dialogs";
 import {Route, Routes} from "react-router-dom";
 import {Music} from "./componets/Music/Music";
 import {Settings} from "./componets/Settings/Settings";
 import {EmptyObject, Store} from "redux";
-import {DialogsContainer} from "./componets/Dialogs/DialogsContainer";
+import DialogsContainer from "./componets/Dialogs/DialogsContainer";
 
 export type RootStateType = {
     profilePage: ProfilePageType
@@ -96,8 +95,8 @@ function App(props: appPropsType) {
                 <Navbar state={state} />
                 <div className={'app-wrapper-content'}>
                     <Routes>
-                        <Route  path="/profile/*" element={<Profile store={props.store}/>}/>
-                        <Route  path="/dialogs/*" element={<DialogsContainer store={props.store}/>}/>
+                        <Route  path="/profile/*" element={<Profile />}/>
+                        <Route  path="/dialogs/*" element={<DialogsContainer/>}/>
                         <Route  path={'/music/*'} element={<Music/>}/>
                         <Route  path={'/settings/*'} element={<Settings/>}/>
                     </Routes>

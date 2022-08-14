@@ -1,31 +1,28 @@
 import React from "react";
-import {addMessageAC, StoreType, updateNewMessageBodyAC} from "../../App";
+import { addMessageAC, updateNewMessageBodyAC} from "../../App";
 import {Dialogs} from "./Dialogs";
+import {connect} from "react-redux";
+import {AppStateType} from "../../redux/redux-store";
 
-type dialogsContainerPropsType = {
-    store: StoreType
+
+
+const mapStateToProps = (state:  AppStateType) => {
+    return {
+        dialogs: state.dialogsPage.dialogs,
+        messages: state.dialogsPage.messages,
+        newMessageBody: state.dialogsPage.newMessageBody
+    }
 }
 
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        addMessage: (text: string) => dispatch(addMessageAC(text)),
+        changeMessage: (text: string) => dispatch(updateNewMessageBodyAC(text))
 
-export const DialogsContainer: React.FC<dialogsContainerPropsType> = (props) => {
-    let state = props.store.getState();
-
-    const addMessage = (text: string) => {
-        props.store.dispatch(addMessageAC(text))
     }
-
-    const changeMessage = (text: string) => {
-        props.store.dispatch(updateNewMessageBodyAC(text))
-    }
-
-    return (
-        <div>
-            <Dialogs dialogs={state.dialogsPage.dialogs}
-                     messages={state.dialogsPage.messages}
-                     addMessage={addMessage}
-                     changeMessage={changeMessage} newMessageBody={state.dialogsPage.newMessageBody}/>
-        </div>
-    )
 }
 
+const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
+
+export default DialogsContainer
 
