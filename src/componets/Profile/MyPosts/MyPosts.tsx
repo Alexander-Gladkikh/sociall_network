@@ -1,13 +1,13 @@
 import React, {ChangeEvent} from "react";
 import s from './MyPosts.module.css'
 import {Posts} from "./Post/Post";
-import {ActionsTypes, addPostAC, PostsType, updateNewPostTextAC,} from "../../../redux/state";
+import {PostsType} from "../../../App";
 
 type MyPostsPropsType = {
+    updateNewPostText: (text: string) => void
+    addPost: (text: string) => void
     posts: PostsType[]
     newPostText: string
-    dispatch: (action: ActionsTypes) => void
-    message: string
 }
 
 
@@ -16,18 +16,17 @@ export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
                                                           countLike={p.countLike}/>)
 
     const addPost = () => {
-
-        props.dispatch(addPostAC(props.message));
+        props.addPost(props.newPostText);
     }
 
     const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(updateNewPostTextAC(e.currentTarget.value))
+        props.updateNewPostText(e.currentTarget.value)
     }
 
     return (
         <>
             <div className={`${s.item} ${s.active}`}>My Posts</div>
-            <textarea  value={props.message} onChange={onPostChange}
+            <textarea  value={props.newPostText} onChange={onPostChange}
             />
             <button onClick={addPost}>Add post</button>
 

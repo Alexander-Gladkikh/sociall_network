@@ -1,21 +1,34 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogsItem/DialogsItem";
 import {Message} from "./Messages/Messages";
-import {ActionsTypes, DialogsType, MessagesType, RootStateType} from "../../redux/state";
-import {AddMessage} from "./AddMessage/AddMessage";
+import {DialogsType, MessagesType, StoreType} from "../../App";
 
 type dialogsPropsType = {
-    state: RootStateType
-    dispatch:(action: ActionsTypes) => void
+    dialogs: DialogsType[]
+    messages: MessagesType[]
+    newMessageBody: string
+    addMessage: (text: string) => void
+    changeMessage: (text: string) => void
 }
 
 
 export const Dialogs: React.FC<dialogsPropsType> = (props) => {
 
-    let dialogsElement = props.state.dialogsPage.dialogs.map((m: DialogsType) => <DialogItem key={m.id} name={m.name} id={m.id}/>)
+    let dialogsElement = props.dialogs.map((m: DialogsType) => <DialogItem key={m.id} name={m.name}
+                                                                                             id={m.id}/>)
 
-    let messagesElement = props.state.dialogsPage.messages.map((m: MessagesType) => <Message key={m.id} message={m.message} id={m.id}/>)
+    let messagesElement = props.messages.map((m: MessagesType) => <Message key={m.id}
+                                                                                             message={m.message}
+                                                                                             id={m.id}/>)
+
+    const addMessage = () => {
+        props.addMessage(props.newMessageBody)
+    }
+
+    const changeMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.changeMessage(e.currentTarget.value)
+    }
 
     return (
         <div className={s.dialogs}>
@@ -26,7 +39,10 @@ export const Dialogs: React.FC<dialogsPropsType> = (props) => {
             <div className={s.messages}>
                 {messagesElement}
             </div>
-            <AddMessage message={props.state.dialogsPage.newMessageBody} dispatch={props.dispatch}/>
+            <div>
+                <textarea value={props.newMessageBody} onChange={changeMessage}></textarea>
+                <button onClick={addMessage}>Add Message</button>
+            </div>
 
         </div>
     )

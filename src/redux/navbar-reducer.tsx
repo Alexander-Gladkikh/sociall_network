@@ -1,4 +1,4 @@
-import {ActionsTypes, NavBarPageType} from "./state";
+import {ActionsTypes, NavBarPageType} from "../App";
 
 let initialState: NavBarPageType = {
     titlePage: [

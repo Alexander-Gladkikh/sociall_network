@@ -1,4 +1,4 @@
-import {PostsType, ProfilePageType, ActionsTypes} from "./state";
+import {PostsType, ProfilePageType, ActionsTypes} from "../App";
 
 let initialState: ProfilePageType = {
     posts: [

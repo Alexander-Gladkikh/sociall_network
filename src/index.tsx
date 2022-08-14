@@ -1,10 +1,11 @@
 import React from 'react';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { store} from "./redux/redux-store";
+import {store} from "./redux/redux-store";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import {BrowserRouter} from "react-router-dom";
+import StoreContext from "./StoreContext";
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
@@ -13,8 +14,8 @@ export let rerenderEntireTree = () => {
     root.render(
         <React.StrictMode>
             <BrowserRouter>
-            <App store={store}/>
-                </BrowserRouter>
+                    <App store={store}/>
+            </BrowserRouter>
         </React.StrictMode>
     );
 }
