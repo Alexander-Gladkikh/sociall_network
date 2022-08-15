@@ -31,23 +31,30 @@ let initialState: DialogsPageType = {
     newMessageBody: '',
 }
 
-export const dialogsReducer = (state = initialState, action: ActionsTypes):DialogsPageType => {
+export const dialogsReducer = (state = initialState, action: ActionsTypes): DialogsPageType => {
     switch (action.type) {
         case "ADD-MESSAGE":
             let newMessage: MessagesType = {
                 id: new Date().getTime(),
                 message: action.textMessage
             }
-            state.messages.push(newMessage);
-            state.newMessageBody = '';
-            return state
+            return {
+                ...state,
+                messages: [...state.messages, newMessage],
+                newMessageBody: ''
+            }
 
         case "UPDATE-NEW-MESSAGE-BODY":
-            state.newMessageBody = action.body;
-            return state
+            return {
+                ...state,
+                newMessageBody: action.body
+            }
         default:
-            return state
+            return {
+                ...state
+            }
     }
+
 }
 
 
