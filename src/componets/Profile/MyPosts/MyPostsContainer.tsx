@@ -1,8 +1,7 @@
 import React from "react";
-import {addPostAC, updateNewPostTextAC,} from "../../../App";
 import {MyPosts} from "./MyPosts";
 import {connect} from "react-redux";
-import {AppStateType} from "../../../redux/redux-store";
+import {addPostAC, AppStateType, updateNewPostTextAC} from "../../../redux/redux-store";
 import {ProfilePageType} from "../../../redux/profile-reducer";
 
 const mapStateToProps = (state: AppStateType): ProfilePageType => {

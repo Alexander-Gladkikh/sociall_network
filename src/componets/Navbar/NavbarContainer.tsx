@@ -1,8 +1,8 @@
 import React from "react";
-import {NavBarPageType} from "../../App";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {Navbar} from "./Navbar";
+import {NavBarPageType} from "../../redux/navbar-reducer";
 
 const MapStateToProps = (state: AppStateType): NavBarPageType => {
     return {

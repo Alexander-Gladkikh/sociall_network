@@ -1,4 +1,5 @@
-import {ActionsTypes} from "../App";
+import {ActionsTypes} from "./redux-store";
+
 
 export type DialogsPageType = {
     messages: MessagesType[]

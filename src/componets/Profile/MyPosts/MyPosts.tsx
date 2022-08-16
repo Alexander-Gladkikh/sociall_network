@@ -1,7 +1,8 @@
 import React, {ChangeEvent} from "react";
 import s from './MyPosts.module.css'
 import {Posts} from "./Post/Post";
-import {PostsType} from "../../../App";
+import {PostsType} from "../../../redux/profile-reducer";
+
 
 type MyPostsPropsType = {
     updateNewPostText: (text: string) => void

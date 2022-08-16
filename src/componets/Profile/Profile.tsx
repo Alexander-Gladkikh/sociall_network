@@ -10,8 +10,3 @@ export const Profile = () => {
         </div>
     )
 }
-
-// posts={props.profilePage.posts}
-// newPostText={props.profilePage.newPostText}
-// dispatch={props.dispatch}
-// message={props.profilePage.newPostText}

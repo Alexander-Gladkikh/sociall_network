@@ -15,15 +15,13 @@ export let rerenderEntireTree = () => {
         <React.StrictMode>
             <BrowserRouter>
                 <Provider store={store}>
-                    <App store={store}/>
+                    <App/>
                 </Provider>
             </BrowserRouter>
         </React.StrictMode>
     );
 }
 
-
-//
 rerenderEntireTree()
 
 store.subscribe(rerenderEntireTree)
