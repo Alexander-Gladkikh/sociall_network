@@ -18,5 +18,5 @@ let initialState: NavBarPageType = {
 
 export const navbarReducer = (state = initialState, action: ActionsTypes) => {
 
-    return state
+    return {...state}
 }

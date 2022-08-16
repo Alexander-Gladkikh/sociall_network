@@ -1,10 +1,11 @@
 import React from "react";
-import {addPostAC, RootStateType, updateNewPostTextAC,} from "../../../App";
+import {addPostAC, updateNewPostTextAC,} from "../../../App";
 import {MyPosts} from "./MyPosts";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../redux/redux-store";
+import {ProfilePageType} from "../../../redux/profile-reducer";
 
-const mapStateToProps = (state:  AppStateType) => {
+const mapStateToProps = (state: AppStateType): ProfilePageType => {
     return {
         posts: state.profilePage.posts,
         newPostText: state.profilePage.newPostText
@@ -15,7 +16,6 @@ const mapDispatchToProps = (dispatch: any) => {
     return {
         addPost: (text: string) => dispatch(addPostAC(text)),
         updateNewPostText: (text: string) => dispatch(updateNewPostTextAC(text))
-
     }
 }
 

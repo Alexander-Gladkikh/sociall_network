@@ -1,4 +1,15 @@
-import {PostsType, ProfilePageType, ActionsTypes} from "../App";
+import { ActionsTypes} from "../App";
+
+
+export type ProfilePageType = {
+    posts: PostsType[]
+    newPostText: string
+}
+export type PostsType = {
+    id: number
+    message: string
+    countLike: number
+}
 
 let initialState: ProfilePageType = {
     posts: [

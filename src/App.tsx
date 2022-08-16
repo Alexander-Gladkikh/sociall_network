@@ -8,6 +8,7 @@ import {Music} from "./componets/Music/Music";
 import {Settings} from "./componets/Settings/Settings";
 import {EmptyObject, Store} from "redux";
 import DialogsContainer from "./componets/Dialogs/DialogsContainer";
+import NavbarContainer from "./componets/Navbar/NavbarContainer";
 
 export type RootStateType = {
     profilePage: ProfilePageType
@@ -92,11 +93,12 @@ function App(props: appPropsType) {
 
             <div className={'app-wrapper'}>
                 <Header/>
-                <Navbar state={state} />
+                <NavbarContainer/>
                 <div className={'app-wrapper-content'}>
                     <Routes>
                         <Route  path="/profile/*" element={<Profile />}/>
                         <Route  path="/dialogs/*" element={<DialogsContainer/>}/>
+
                         <Route  path={'/music/*'} element={<Music/>}/>
                         <Route  path={'/settings/*'} element={<Settings/>}/>
                     </Routes>

@@ -3,10 +3,11 @@ import { addMessageAC, updateNewMessageBodyAC} from "../../App";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
+import {DialogsPageType} from "../../redux/dialogs-reducer";
 
 
 
-const mapStateToProps = (state:  AppStateType) => {
+const mapStateToProps = (state:  AppStateType): DialogsPageType => {
     return {
         dialogs: state.dialogsPage.dialogs,
         messages: state.dialogsPage.messages,
