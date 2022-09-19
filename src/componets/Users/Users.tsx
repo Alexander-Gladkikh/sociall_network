@@ -9,36 +9,11 @@ type UsersPropsType = {
 }
 
 const Users = (props: UsersPropsType) => {
-    if(props.users.length === 0){
-        props.setUsers([
-            {
-                id: 1,
-                fullName: 'Dmitry',
-                followed: false,
-                status: 'I am a boss',
-                location: {city: 'Minsk', country: 'Belarus'}
-            },
-            {
-                id: 2,
-                fullName: 'Sasha',
-                followed: true,
-                status: 'I am a boss too',
-                location: {city: 'Moscow', country: 'Russia'}
-            },
-            {
-                id: 3,
-                fullName: 'Andrey',
-                followed: false,
-                status: 'I am a boss too',
-                location: {city: 'Kiev', country: 'Ukraine'}
-            },
-        ])
-    }
 
-    return <div>
-
+    return (
+        <>
         {props.users.map((u: UsersType) =>
-            <div key={u.id}> )
+            <div key={u.id}>
                 <div>
                     <img/>
                     {u.followed
@@ -57,6 +32,7 @@ const Users = (props: UsersPropsType) => {
                 </div>
             </div>
         )}
-    </div>
+    </>
+    )
 }
 export default Users;

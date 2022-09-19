@@ -1,13 +1,14 @@
 import {ActionsTypes} from "./redux-store";
 
 
-export type FriendsType = {
-    id: string
-    name: string
-}
+
 export type NavBarPageType = {
     titlePage: NavBarType[]
     friends: FriendsType[]
+}
+export type FriendsType = {
+    id: string
+    name: string
 }
 export type NavBarType = {
     id: string
