@@ -7,7 +7,6 @@ import {Music} from "./componets/Music/Music";
 import {Settings} from "./componets/Settings/Settings";
 import DialogsContainer from "./componets/Dialogs/DialogsContainer";
 import NavbarContainer from "./componets/Navbar/NavbarContainer";
-import Users from "./componets/Users/Users";
 import UsersContainer from "./componets/Users/UsersContainer";
 
 

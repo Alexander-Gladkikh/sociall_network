@@ -1,10 +1,6 @@
 import {ActionsTypes} from "./redux-store";
 
-export type UsersPageType = {
-    users: UsersType[]
-}
-
-export type UsersType = {
+export type UserType = {
     id: number
     followed: boolean
     fullName: string
@@ -17,40 +13,22 @@ export type UsersLocationType = {
     country: string
 }
 
-let initialState: UsersPageType = {
-    users: [
-        {
-            id: 1,
-            fullName: 'Dmitry',
-            followed: false,
-            status: 'I am a boss',
-            location: {city: 'Minsk', country: 'Belarus'}
-        },
-        {
-            id: 2,
-            fullName: 'Sasha',
-            followed: true,
-            status: 'I am a boss too',
-            location: {city: 'Moscow', country: 'Russia'}
-        },
-        {
-            id: 3,
-            fullName: 'Andrey',
-            followed: false,
-            status: 'I am a boss too',
-            location: {city: 'Kiev', country: 'Ukraine'}
-        },
-    ]
+let initialState: initialStateType = {
+    users: []
 }
 
-export const usersReducer = (state: UsersPageType = initialState, action: ActionsTypes): UsersPageType => {
+export type initialStateType = {
+    users: UserType[]
+}
+
+export const usersReducer = (state: initialStateType  = initialState, action: ActionsTypes): initialStateType => {
     switch (action.type) {
         case "FOLLOW":
             return {
                 ...state,
                 users: state.users.map(u => u.id === action.userId ? {...u, followed: true} : u)
             }
-         case "UNFOLLOW":
+        case "UNFOLLOW":
             return {
                 ...state,
                 users: state.users.map(u => u.id === action.userId ? {...u, followed: false} : u)
@@ -58,7 +36,7 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
         case "SET_USERS":
             return {
                 ...state,
-                users: [...state.users, action.users]
+                users: [...action.users]
             }
         default:
             return {
@@ -66,6 +44,25 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
             }
     }
 
+}
+
+export const followAC = (userId: number) => {
+    return {
+        type: 'FOLLOW',
+        userId
+    } as const
+}
+export const unfollowAC = (userId: number) => {
+    return {
+        type: 'UNFOLLOW',
+        userId
+    } as const
+}
+export const setUsersAC = (users: UserType[]) => {
+    return {
+        type: 'SET_USERS',
+        users
+    } as const
 }
 
 

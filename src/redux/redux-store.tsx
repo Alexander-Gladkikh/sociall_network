@@ -2,14 +2,15 @@ import {combineReducers, createStore, EmptyObject, Store,} from "redux";
 import {ProfilePageType, profileReducer} from "./profile-reducer";
 import {DialogsPageType, dialogsReducer} from "./dialogs-reducer";
 import {NavBarPageType, navbarReducer} from "./navbar-reducer";
-import {UsersPageType, usersReducer, UsersType} from "./users-reducer";
+import {followAC, setUsersAC, unfollowAC, usersReducer} from "./users-reducer";
 
 
-export type StoreType = Store<EmptyObject & {
-    profilePage: ProfilePageType,
-    dialogsPage: DialogsPageType,
-    navBarPage: NavBarPageType,
-    userPage: UsersPageType}, ActionsTypes>
+// export type StoreType = Store<EmptyObject & {
+//     profilePage: ProfilePageType,
+//     dialogsPage: DialogsPageType,
+//     navBarPage: NavBarPageType,
+//     userPage: UserPageType
+// }, ActionsTypes>
 
 export type ActionsTypes = ReturnType<typeof addPostAC>
     | ReturnType<typeof updateNewPostTextAC>
@@ -43,21 +44,19 @@ export const addMessageAC = (text: string) => {
         textMessage: text
     } as const
 }
-export const followAC = (userId: number) => ({type: 'FOLLOW', userId} as const)
-export const unfollowAC = (userId: number) => ({type: 'UNFOLLOW', userId} as const)
-export const setUsersAC = (users: UsersType) => ({type: 'SET_USERS', users} as const)
 
 
-let rootReducer = combineReducers({
+
+export const rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     navBarPage: navbarReducer,
-    userPage: usersReducer,
+    users: usersReducer
 });
 
 export type AppStateType = ReturnType<typeof rootReducer>
 
-export let store = createStore(rootReducer);
+export const store = createStore(rootReducer);
 
 
 
