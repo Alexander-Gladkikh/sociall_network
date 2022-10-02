@@ -3,8 +3,12 @@ import {ActionsTypes} from "./redux-store";
 export type UserType = {
     id: number
     followed: boolean
-    fullName: string
+    name: string
     status: string
+    photos: {
+        "small": string,
+        "large": string
+    }
     location: UsersLocationType
 }
 
@@ -21,7 +25,7 @@ export type initialStateType = {
     users: UserType[]
 }
 
-export const usersReducer = (state: initialStateType  = initialState, action: ActionsTypes): initialStateType => {
+export const usersReducer = (state: initialStateType = initialState, action: ActionsTypes): initialStateType => {
     switch (action.type) {
         case "FOLLOW":
             return {

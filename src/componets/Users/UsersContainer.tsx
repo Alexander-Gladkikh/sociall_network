@@ -26,8 +26,8 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
     return {
-        follow: (userId: number) => dispatch(followAC(userId)) ,
-        unfollow: (userId: number) => dispatch(unfollowAC(userId)) ,
+        follow: (userId: number) => dispatch(followAC(userId)),
+        unfollow: (userId: number) => dispatch(unfollowAC(userId)),
         setUsers: (users: UserType[]) => dispatch(setUsersAC(users))
     }
 }
