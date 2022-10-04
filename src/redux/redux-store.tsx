@@ -2,7 +2,15 @@ import {combineReducers, createStore, EmptyObject, Store,} from "redux";
 import {ProfilePageType, profileReducer} from "./profile-reducer";
 import {DialogsPageType, dialogsReducer} from "./dialogs-reducer";
 import {NavBarPageType, navbarReducer} from "./navbar-reducer";
-import {followAC, setCurrentPageAC, setTotalUserCountAC, setUsersAC, unfollowAC, usersReducer} from "./users-reducer";
+import {
+    followAC,
+    setCurrentPageAC,
+    setTotalUserCountAC,
+    setUsersAC,
+    toggleIsFetchingAC,
+    unfollowAC,
+    usersReducer
+} from "./users-reducer";
 
 
 // export type StoreType = Store<EmptyObject & {
@@ -21,6 +29,7 @@ export type ActionsTypes = ReturnType<typeof addPostAC>
     | ReturnType<typeof setUsersAC>
     | ReturnType<typeof setCurrentPageAC>
     | ReturnType<typeof setTotalUserCountAC>
+    | ReturnType<typeof toggleIsFetchingAC>
 
 export const addPostAC = (text: string) => {
     return {

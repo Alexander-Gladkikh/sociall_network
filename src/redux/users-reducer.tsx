@@ -17,18 +17,20 @@ export type UsersLocationType = {
     country: string
 }
 
-let initialState: initialStateType = {
-    users: [],
-    pageSize: 5,
-    totalUsersCount: 50, // нужно 0
-    currentPage: 2,
-}
-
 export type initialStateType = {
     users: UserType[]
     pageSize: number
     totalUsersCount: number
     currentPage: number
+    isFetching: boolean
+}
+
+let initialState: initialStateType = {
+    users: [],
+    pageSize: 5,
+    totalUsersCount: 50, // нужно 0
+    currentPage: 2,
+    isFetching: false
 }
 
 export const usersReducer = (state: initialStateType = initialState, action: ActionsTypes): initialStateType => {
@@ -52,6 +54,8 @@ export const usersReducer = (state: initialStateType = initialState, action: Act
             return { ...state, currentPage: action.currentPage}
         case "SET_TOTAL_USER_COUNT":
             return { ...state, totalUsersCount: action.count}
+        case "TOGGLE_IS_FETCHING":
+            return { ...state, isFetching: action.isFetching}
         default:
             return {
                 ...state
@@ -88,6 +92,12 @@ export const setTotalUserCountAC = (count: number) => {
     return {
         type: 'SET_TOTAL_USER_COUNT',
         count
+    } as const
+}
+export const toggleIsFetchingAC = (isFetching: boolean) => {
+    return {
+        type: 'TOGGLE_IS_FETCHING',
+        isFetching
     } as const
 }
 
