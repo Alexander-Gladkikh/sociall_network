@@ -1,16 +1,17 @@
-import {combineReducers, createStore, EmptyObject, Store,} from "redux";
-import {ProfilePageType, profileReducer} from "./profile-reducer";
-import {DialogsPageType, dialogsReducer} from "./dialogs-reducer";
-import {NavBarPageType, navbarReducer} from "./navbar-reducer";
+import {combineReducers, createStore} from "redux";
+import {addPostAC, profileReducer, setUsersProfile, updateNewPostTextAC} from "./profile-reducer";
+import { dialogsReducer} from "./dialogs-reducer";
+import {navbarReducer} from "./navbar-reducer";
 import {
-    followAC,
-    setCurrentPageAC,
-    setTotalUserCountAC,
-    setUsersAC,
-    toggleIsFetchingAC,
-    unfollowAC,
+    follow,
+    setCurrentPage,
+    setTotalUserCount,
+    setUsers,
+    toggleIsFetching,
+    unfollow,
     usersReducer
 } from "./users-reducer";
+import {authReducer, setAuthUserData} from "./auth-reducer";
 
 
 // export type StoreType = Store<EmptyObject & {
@@ -24,25 +25,17 @@ export type ActionsTypes = ReturnType<typeof addPostAC>
     | ReturnType<typeof updateNewPostTextAC>
     | ReturnType<typeof updateNewMessageBodyAC>
     | ReturnType<typeof addMessageAC>
-    | ReturnType<typeof followAC>
-    | ReturnType<typeof unfollowAC>
-    | ReturnType<typeof setUsersAC>
-    | ReturnType<typeof setCurrentPageAC>
-    | ReturnType<typeof setTotalUserCountAC>
-    | ReturnType<typeof toggleIsFetchingAC>
+    | ReturnType<typeof follow>
+    | ReturnType<typeof unfollow>
+    | ReturnType<typeof setUsers>
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setTotalUserCount>
+    | ReturnType<typeof toggleIsFetching>
+    | ReturnType<typeof setUsersProfile>
+    | ReturnType<typeof setAuthUserData>
 
-export const addPostAC = (text: string) => {
-    return {
-        type: "ADD-POST",
-        postText: text
-    } as const
-}
-export const updateNewPostTextAC = (text: string) => {
-    return {
-        type: "UPDATE-NEW-POST-TEXT",
-        newText: text
-    } as const
-}
+
+
 export const updateNewMessageBodyAC = (message: string) => {
     return {
         type: 'UPDATE-NEW-MESSAGE-BODY',
@@ -62,12 +55,15 @@ export const rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     navBarPage: navbarReducer,
-    users: usersReducer
+    users: usersReducer,
+    auth: authReducer
 });
 
 export type AppStateType = ReturnType<typeof rootReducer>
 
 export const store = createStore(rootReducer);
+
+
 
 
 

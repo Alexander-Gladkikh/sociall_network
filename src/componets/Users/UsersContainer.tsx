@@ -1,18 +1,16 @@
 import React from "react";
 import {connect} from "react-redux";
 import {
-    followAC,
+    follow,
     initialStateType,
-    setCurrentPageAC, setTotalUserCountAC,
-    setUsersAC, toggleIsFetchingAC,
-    unfollowAC,
+    setCurrentPage, setTotalUserCount,
+    setUsers, toggleIsFetching,
+    unfollow,
     UserType
 } from "../../redux/users-reducer";
 import {AppStateType} from "../../redux/redux-store";
-import {Dispatch} from "redux";
 import axios from "axios";
 import {Users} from "./Users";
-import preloader from "../../assets/images/loading.gif"
 import {Preloader} from "../common/preloader/Preloader";
 
 type MapStatePropsType = {
@@ -77,17 +75,18 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
-    return {
-        follow: (userId: number) => dispatch(followAC(userId)),
-        unfollow: (userId: number) => dispatch(unfollowAC(userId)),
-        setUsers: (users: UserType[]) => dispatch(setUsersAC(users)),
-        setCurrentPage: (currentPage: number) => dispatch(setCurrentPageAC(currentPage)),
-        setTotalUserCount: (count: number) => dispatch(setTotalUserCountAC(count)),
-        toggleIsFetching: (isFetching: boolean) => dispatch(toggleIsFetchingAC(isFetching))
-    }
-}
+// const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
+//     return {
+//         follow: (userId: number) => dispatch(follow(userId)),
+//         unfollow: (userId: number) => dispatch(unfollow(userId)),
+//         setUsers: (users: UserType[]) => dispatch(setUsers(users)),
+//         setCurrentPage: (currentPage: number) => dispatch(setCurrentPage(currentPage)),
+//         setTotalUserCount: (count: number) => dispatch(setTotalUserCount(count)),
+//         toggleIsFetching: (isFetching: boolean) => dispatch(toggleIsFetching(isFetching))
+//     }
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
+export default connect(mapStateToProps,
+    {follow, unfollow, setUsers, setCurrentPage, setTotalUserCount, toggleIsFetching})(UsersContainer)
 
 

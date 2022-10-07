@@ -27,9 +27,9 @@ export type initialStateType = {
 
 let initialState: initialStateType = {
     users: [],
-    pageSize: 5,
-    totalUsersCount: 50, // нужно 0
-    currentPage: 2,
+    pageSize: 20,
+    totalUsersCount: 500, // нужно 0
+    currentPage: 1,
     isFetching: false
 }
 
@@ -64,37 +64,37 @@ export const usersReducer = (state: initialStateType = initialState, action: Act
 
 }
 
-export const followAC = (userId: number) => {
+export const follow = (userId: number) => {
     return {
         type: 'FOLLOW',
         userId
     } as const
 }
-export const unfollowAC = (userId: number) => {
+export const unfollow = (userId: number) => {
     return {
         type: 'UNFOLLOW',
         userId
     } as const
 }
-export const setUsersAC = (users: UserType[]) => {
+export const setUsers = (users: UserType[]) => {
     return {
         type: 'SET_USERS',
         users
     } as const
 }
-export const setCurrentPageAC = (currentPage: number) => {
+export const setCurrentPage = (currentPage: number) => {
     return {
         type: 'SET_CURRENT_PAGE',
         currentPage
     } as const
 }
-export const setTotalUserCountAC = (count: number) => {
+export const setTotalUserCount = (count: number) => {
     return {
         type: 'SET_TOTAL_USER_COUNT',
         count
     } as const
 }
-export const toggleIsFetchingAC = (isFetching: boolean) => {
+export const toggleIsFetching = (isFetching: boolean) => {
     return {
         type: 'TOGGLE_IS_FETCHING',
         isFetching
