@@ -1,4 +1,5 @@
 import {ActionsTypes} from "./redux-store";
+import {UsersAPI} from "../api/api";
 
 export type UserType = {
     id: number
@@ -23,6 +24,7 @@ export type initialStateType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    followingInProgress: any
 }
 
 let initialState: initialStateType = {
@@ -30,7 +32,8 @@ let initialState: initialStateType = {
     pageSize: 20,
     totalUsersCount: 500, // нужно 0
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
+    followingInProgress: []
 }
 
 export const usersReducer = (state: initialStateType = initialState, action: ActionsTypes): initialStateType => {
@@ -56,6 +59,13 @@ export const usersReducer = (state: initialStateType = initialState, action: Act
             return { ...state, totalUsersCount: action.count}
         case "TOGGLE_IS_FETCHING":
             return { ...state, isFetching: action.isFetching}
+        case "TOGGLE_IS_FOLLOWING_PROGRESS":
+            return {
+                ...state,
+                followingInProgress: action.isFetching
+                    ? [...state.followingInProgress, action.userId]
+                    :state.followingInProgress.filter((id: number) => id !=action.userId)
+            }
         default:
             return {
                 ...state
@@ -64,7 +74,7 @@ export const usersReducer = (state: initialStateType = initialState, action: Act
 
 }
 
-export const follow = (userId: number) => {
+export const acceptFollow = (userId: number) => {
     return {
         type: 'FOLLOW',
         userId
@@ -101,6 +111,25 @@ export const toggleIsFetching = (isFetching: boolean) => {
     } as const
 }
 
+export const toggleFollowingProgress = (isFetching: boolean, userId: number) => {
+    return {
+        type: 'TOGGLE_IS_FOLLOWING_PROGRESS',
+        isFetching, userId
+    } as const
+}
+
+export const getUsers = (currentPage: any, pageSize: any) => {
+
+    return (dispatch: any) => {
+        dispatch(toggleIsFetching(true));
+        UsersAPI.getUsers(currentPage, pageSize).then(data => {
+            dispatch(setUsers(data.items))
+            //this.props.setTotalUserCount(response.data.totalCount)
+            dispatch(toggleIsFetching(false))
+        })
+    }
+
+}
 
 
 
