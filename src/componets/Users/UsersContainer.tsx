@@ -1,12 +1,12 @@
 import React from "react";
 import {connect} from "react-redux";
 import {
-    acceptFollow, getUsers,
+    follow,
+    followSuccess, getUsers,
     initialStateType,
     setCurrentPage,
-    toggleFollowingProgress,
-    unfollow,
-    UserType
+    toggleFollowingProgress, unfollow,
+    unfollowSuccess,
 } from "../../redux/users-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {Users} from "./Users";
@@ -28,7 +28,7 @@ type MapDispatchPropsType = {
     setCurrentPage: (currentPage: number) => void
     //setTotalUserCount: (count: number) => void
     //toggleIsFetching: (isFetching: boolean) => void
-    toggleFollowingProgress: (isFetching: boolean, userId: number) => void
+    //toggleFollowingProgress: (isFetching: boolean, userId: number) => void
     getUsers: any
 }
 export type UsersPropsType = MapStatePropsType & MapDispatchPropsType;
@@ -69,7 +69,7 @@ class UsersContainer extends React.Component<UsersPropsType> {
                    unfollow={this.props.unfollow}
                    follow={this.props.follow}
                    followingInProgress={this.props.followingInProgress}
-                   toggleFollowingProgress={this.props.toggleFollowingProgress}
+                   //toggleFollowingProgress={this.props.toggleFollowingProgress}
             />
         </div>
     }
@@ -98,7 +98,7 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 // }
 
 export default connect(mapStateToProps,
-    {follow: acceptFollow, unfollow,  setCurrentPage,
+    {follow, unfollow,  setCurrentPage,
           toggleFollowingProgress,
         getUsers,})(UsersContainer)
 

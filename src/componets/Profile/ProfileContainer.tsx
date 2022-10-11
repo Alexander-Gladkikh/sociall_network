@@ -2,7 +2,7 @@ import React from "react";
 import {Profile} from "./Profile";
 import axios from "axios";
 import {connect} from "react-redux";
-import {setUsersProfile} from "../../redux/profile-reducer";
+import {getUserProfile, setUsersProfile} from "../../redux/profile-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {
     useLocation,
@@ -19,9 +19,7 @@ class ProfileContainer extends React.Component<any>  {
         if(!profileId) {
             profileId = 2;
         }
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + profileId).then(response => {
-            this.props.setUsersProfile(response.data)
-        })
+        getUserProfile(profileId)
     }
 
     render () {

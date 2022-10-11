@@ -21,15 +21,19 @@ export const UsersAPI = {
     follow(id:any) {
         return instance.post(`follow/${id}`,)
             .then(response => response.data)
-    }
-}
-
-export const AuthMeAPI = {
+    },
     login() {
         return instance.get(`auth/me`)
             .then(response => response.data)
+    },
+    getProfile(profileId: any) {
+        return instance.get(`profile/` + profileId)
     }
 }
+
+
+
+
 
 
 

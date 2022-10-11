@@ -3,12 +3,12 @@ import {addPostAC, profileReducer, setUsersProfile, updateNewPostTextAC} from ".
 import { dialogsReducer} from "./dialogs-reducer";
 import {navbarReducer} from "./navbar-reducer";
 import {
-    acceptFollow,
+    followSuccess,
     setCurrentPage,
     setTotalUserCount,
     setUsers, toggleFollowingProgress,
     toggleIsFetching,
-    unfollow,
+    unfollowSuccess,
     usersReducer
 } from "./users-reducer";
 import {authReducer, setAuthUserData} from "./auth-reducer";
@@ -26,8 +26,8 @@ export type ActionsTypes = ReturnType<typeof addPostAC>
     | ReturnType<typeof updateNewPostTextAC>
     | ReturnType<typeof updateNewMessageBodyAC>
     | ReturnType<typeof addMessageAC>
-    | ReturnType<typeof acceptFollow>
-    | ReturnType<typeof unfollow>
+    | ReturnType<typeof followSuccess>
+    | ReturnType<typeof unfollowSuccess>
     | ReturnType<typeof setUsers>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setTotalUserCount>
