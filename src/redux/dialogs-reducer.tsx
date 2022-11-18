@@ -5,6 +5,7 @@ export type DialogsPageType = {
     messages: MessagesType[]
     dialogs: DialogsType[]
     newMessageBody: string
+    isAuth?: boolean
 }
 export type DialogsType = {
     id: string

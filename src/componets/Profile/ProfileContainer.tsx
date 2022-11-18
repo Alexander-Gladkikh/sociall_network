@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {getUserProfile, setUsersProfile} from "../../redux/profile-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {
+    Navigate,
     useLocation,
     useNavigate,
     useParams,
@@ -23,6 +24,7 @@ class ProfileContainer extends React.Component<any>  {
     }
 
     render () {
+        if(!this.props.isAuth) return <Navigate to='/login'/>
        return <div>
             <Profile {...this.props} profile={this.props.profile}/>
         </div>
@@ -31,7 +33,8 @@ class ProfileContainer extends React.Component<any>  {
 
 const mapStateToProps = (state: AppStateType)  => {
     return {
-        profile: state.profilePage.profile
+        profile: state.profilePage.profile,
+        isAuth: state.auth.isAuth
     }
 }
 
