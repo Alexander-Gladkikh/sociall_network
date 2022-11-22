@@ -9,6 +9,7 @@ import UsersContainer from "./componets/Users/UsersContainer";
 import ProfileContainer from "./componets/Profile/ProfileContainer";
 import HeaderContainer from "./componets/Header/HeaderContainer";
 import LoginPage from "./componets/login/Login";
+import {Dialogs} from "./componets/Dialogs/Dialogs";
 
 
 function App() {

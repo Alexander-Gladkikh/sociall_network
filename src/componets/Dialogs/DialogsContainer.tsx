@@ -4,6 +4,9 @@ import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {addMessageAC, AppStateType, updateNewMessageBodyAC} from "../../redux/redux-store";
 import {DialogsPageType} from "../../redux/dialogs-reducer";
+import {Navigate} from "react-router-dom";
+import {widthAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 
 
@@ -12,7 +15,6 @@ const mapStateToProps = (state:  AppStateType): DialogsPageType => {
         dialogs: state.dialogsPage.dialogs,
         messages: state.dialogsPage.messages,
         newMessageBody: state.dialogsPage.newMessageBody,
-        isAuth: state.auth.isAuth
     }
 }
 
@@ -24,7 +26,9 @@ const mapDispatchToProps = (dispatch: any) => {
     }
 }
 
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
+const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(compose(
+    //widthAuthRedirect
+)(Dialogs))
 
 export default DialogsContainer
 
