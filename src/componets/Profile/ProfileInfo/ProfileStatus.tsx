@@ -6,16 +6,25 @@ import {Preloader} from "../../common/preloader/Preloader";
 class ProfileStatus extends React.Component<any, any> {
 
     state = {
-        editMode: true
+        editMode: true,
+        status: this.props.status
     }
-    activateEditMode () {
+    activateEditMode = () => {
         this.setState(
             {editMode: false}
         )
     }
-    deactivateEditMode() {
+    deactivateEditMode = () => {
         this.setState(
             {editMode: true}
+        )
+        this.props.updateStatus(this.state.status)
+    }
+
+    onStatusChange = (e: any) => {
+        this.setState({
+                status: e.currentTarget.value
+            }
         )
     }
 
@@ -25,11 +34,12 @@ class ProfileStatus extends React.Component<any, any> {
             {this.state.editMode
                 ?
                 <div>
-                    <span onDoubleClick={this.activateEditMode.bind(this)}>Hello new User</span>
-                 </div>
+                    <span onDoubleClick={this.activateEditMode}>{this.state.status || 'No status'}</span>
+                </div>
                 :
                 <div>
-                    <input autoFocus type="text" onBlur={this.deactivateEditMode.bind(this)}></input>
+                    <input onChange={this.onStatusChange} autoFocus type="text" onBlur={this.deactivateEditMode}
+                           value={this.state.status}></input>
                 </div>
             }
 

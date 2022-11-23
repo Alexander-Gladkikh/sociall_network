@@ -1,6 +1,6 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
-import {addPostAC, profileReducer, setUsersProfile, updateNewPostTextAC} from "./profile-reducer";
-import { dialogsReducer} from "./dialogs-reducer";
+import {addPostAC, profileReducer, setStatus, setUsersProfile, updateNewPostTextAC} from "./profile-reducer";
+import {dialogsReducer} from "./dialogs-reducer";
 import {navbarReducer} from "./navbar-reducer";
 import {
     followSuccess,
@@ -12,7 +12,7 @@ import {
     usersReducer
 } from "./users-reducer";
 import {authReducer, setAuthUserData} from "./auth-reducer";
-import  thunkMiddleware from "redux-thunk";
+import thunkMiddleware from "redux-thunk";
 
 
 // export type StoreType = Store<EmptyObject & {
@@ -35,7 +35,7 @@ export type ActionsTypes = ReturnType<typeof addPostAC>
     | ReturnType<typeof setUsersProfile>
     | ReturnType<typeof setAuthUserData>
     | ReturnType<typeof toggleFollowingProgress>
-
+    | ReturnType<typeof setStatus>
 
 
 export const updateNewMessageBodyAC = (message: string) => {
@@ -50,7 +50,6 @@ export const addMessageAC = (text: string) => {
         textMessage: text
     } as const
 }
-
 
 
 export const rootReducer = combineReducers({
