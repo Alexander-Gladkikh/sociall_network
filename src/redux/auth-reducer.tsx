@@ -18,7 +18,9 @@ let initialState: initialStateType = {
 }
 
 export const authReducer = (state: initialStateType = initialState, action: ActionsTypes): initialStateType => {
+debugger
     switch (action.type) {
+
         case "SET-USER-DATA":
 
             return {
@@ -45,9 +47,10 @@ export const login = () => {
     return (dispatch: any) => {
         UsersAPI.login().then(data => {
             if(data.resultCode === 0) {
-                const {id, email, login} = data.data;
+                let {id, email, login} = data.data;
                 dispatch(setAuthUserData(id, email, login));
             }
+
         })
     }
 }

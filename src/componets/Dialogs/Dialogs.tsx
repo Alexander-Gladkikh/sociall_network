@@ -3,7 +3,6 @@ import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogsItem/DialogsItem";
 import {Message} from "./Messages/Messages";
 import {DialogsType, MessagesType} from "../../redux/dialogs-reducer";
-import { Navigate } from "react-router-dom";
 
 type dialogsPropsType = {
     dialogs: DialogsType[]
@@ -17,12 +16,14 @@ type dialogsPropsType = {
 
 export const Dialogs: React.FC<dialogsPropsType> = (props) => {
 
-    let dialogsElement = props.dialogs.map((m: DialogsType) => <DialogItem key={m.id} name={m.name}
-                                                                                             id={m.id}/>)
+    let dialogsElement = props.dialogs.map((m: DialogsType) =>
+        <DialogItem key={m.id} name={m.name}
+                    id={m.id}/>)
 
-    let messagesElement = props.messages.map((m: MessagesType) => <Message key={m.id}
-                                                                                             message={m.message}
-                                                                                             id={m.id}/>)
+    let messagesElement = props.messages.map((m: MessagesType) =>
+        <Message key={m.id}
+                 message={m.message}
+                 id={m.id}/>)
 
     const addMessage = () => {
         props.addMessage(props.newMessageBody)
@@ -32,6 +33,7 @@ export const Dialogs: React.FC<dialogsPropsType> = (props) => {
         props.changeMessage(e.currentTarget.value)
     }
 
+    alert(props.isAuth)
 
 
     return (

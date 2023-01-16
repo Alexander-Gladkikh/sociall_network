@@ -15,6 +15,7 @@ const mapStateToProps = (state:  AppStateType): DialogsPageType => {
         dialogs: state.dialogsPage.dialogs,
         messages: state.dialogsPage.messages,
         newMessageBody: state.dialogsPage.newMessageBody,
+        isAuth: state.auth.isAuth
     }
 }
 
