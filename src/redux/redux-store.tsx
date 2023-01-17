@@ -14,14 +14,6 @@ import {
 import {authReducer, setAuthUserData} from "./auth-reducer";
 import thunkMiddleware from "redux-thunk";
 
-
-// export type StoreType = Store<EmptyObject & {
-//     profilePage: ProfilePageType,
-//     dialogsPage: DialogsPageType,
-//     navBarPage: NavBarPageType,
-//     userPage: UserPageType
-// }, ActionsTypes>
-
 export type ActionsTypes = ReturnType<typeof addPostAC>
     | ReturnType<typeof updateNewPostTextAC>
     | ReturnType<typeof updateNewMessageBodyAC>
@@ -57,7 +49,7 @@ export const rootReducer = combineReducers({
     dialogsPage: dialogsReducer,
     navBarPage: navbarReducer,
     users: usersReducer,
-    auth: authReducer
+    auth: authReducer,
 });
 
 export type AppStateType = ReturnType<typeof rootReducer>
