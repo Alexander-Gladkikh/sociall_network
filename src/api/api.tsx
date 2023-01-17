@@ -25,6 +25,7 @@ export const UsersAPI = {
     login() {
         return instance.get(`auth/me`)
             .then(response => response.data)
+
     },
     getProfile(profileId: any) {
         console.warn("Obsolete method. Please profileAPI object")

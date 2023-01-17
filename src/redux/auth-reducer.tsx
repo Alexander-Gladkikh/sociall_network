@@ -6,7 +6,6 @@ export type initialStateType = {
     email: string | null
     login: string | null
     isAuth: boolean
-    //isFetching: boolean
 }
 
 let initialState: initialStateType = {
@@ -14,11 +13,10 @@ let initialState: initialStateType = {
     email: null,
     login: null,
     isAuth: false,
-    //isFetching: false
 }
 
 export const authReducer = (state: initialStateType = initialState, action: ActionsTypes): initialStateType => {
-debugger
+
     switch (action.type) {
 
         case "SET-USER-DATA":
@@ -35,20 +33,21 @@ debugger
 
 }
 
-export const setAuthUserData = (id: number, email: string, login: string) => {
+export const setAuthUserData = (id: number, login: string, email: string) => {
     return {
         type: 'SET-USER-DATA',
-        data: {id, email, login}
+        data: {id, login, email}
     } as const
 }
 
-export const login = () => {
+export const getAuthUser = () => {
 
     return (dispatch: any) => {
         UsersAPI.login().then(data => {
-            if(data.resultCode === 0) {
-                let {id, email, login} = data.data;
-                dispatch(setAuthUserData(id, email, login));
+
+            if (data.resultCode === 0) {
+                let {id, login, email} = data.data;
+                dispatch(setAuthUserData(id, login, email));
             }
 
         })
