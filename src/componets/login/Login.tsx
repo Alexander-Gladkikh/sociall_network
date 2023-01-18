@@ -1,53 +1,32 @@
-import React from "react";
-import {Formik, Form, Field, ErrorMessage} from "formik";
-import loginFormSchema from "../FormValidation/LoginForSchema";
+import React from 'react';
+import {Field, reduxForm} from "redux-form";
 
+const LoginForm: React.FC = (props) => {
+    return (
+        <form>
+            <div>
+                <Field placeholder={'Login'} component={'input'} name={'login'}/>
+            </div>
+            <div>
+                <Field placeholder={'Password'} component={'input'} name={'password'}/>
+            </div>
+            <div>
+                <Field type={"checkbox"} component={'input'} name={'remember me'}/>remember me
+            </div>
+            <button>Login</button>
+        </form>
+    );
+};
 
-const Login = () => (
-    <div>
-        <h1>Login</h1>
-        <Formik
-            initialValues={{email: "", password: "", rememberMe: false}}
-            validate={values => {
-                const errors = {
-                    email: ''
-                };
-                if (!values.email) {
-                    errors.email = 'Required';
-                } else if (
-                    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-                ) {
-                    console.log('Invalid email address')
-                    errors.email = 'Invalid email address';
-                }
-                return errors;
-            }}
-            onSubmit={(values) => {
-                console.log(values)
-            }}
-            validationSchema={loginFormSchema}>
-            {() => (
-                <Form>
-                    <div>
-                        <Field type={'text'} name={'email'} placeholder={'e-mail'}/>
-                    </div>
-                    <ErrorMessage name="email" component="div"/>
+const LoginReduxForm = reduxForm({form: 'login'})(LoginForm)
 
-                    <div>
-                        <Field type={'password'} name={'password'} placeholder={'password'}/>
-                    </div>
-                    <ErrorMessage name="password" component="div"/>
+const Login: React.FC = () => {
+    return (
+        <div>
+            <h1>Login</h1>
+            <LoginReduxForm/>
+        </div>
+    );
+};
 
-                    <div>
-                        <Field type={'checkbox'} name={'rememberMe'}/>
-                        <label htmlFor={'rememberMe'}> remember me </label>
-                    </div>
-
-                    <button type={'submit'}>Log in</button>
-                </Form>
-            )}
-        </Formik>
-    </div>
-);
-
-export default Login
+export default Login;
