@@ -17,7 +17,6 @@ import {reducer as formReducer} from 'redux-form'
 
 export type ActionsTypes = ReturnType<typeof addPostAC>
     | ReturnType<typeof updateNewPostTextAC>
-    | ReturnType<typeof updateNewMessageBodyAC>
     | ReturnType<typeof addMessageAC>
     | ReturnType<typeof followSuccess>
     | ReturnType<typeof unfollowSuccess>
@@ -31,16 +30,10 @@ export type ActionsTypes = ReturnType<typeof addPostAC>
     | ReturnType<typeof setStatus>
 
 
-export const updateNewMessageBodyAC = (message: string) => {
-    return {
-        type: 'UPDATE-NEW-MESSAGE-BODY',
-        body: message
-    } as const
-}
-export const addMessageAC = (text: string) => {
+export const addMessageAC = (newMessageBody: string) => {
     return {
         type: "ADD-MESSAGE",
-        textMessage: text
+        newMessageBody
     } as const
 }
 

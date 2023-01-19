@@ -4,7 +4,6 @@ import {ActionsTypes} from "./redux-store";
 export type DialogsPageType = {
     messages: MessagesType[]
     dialogs: DialogsType[]
-    newMessageBody: string
     isAuth?: boolean
 }
 export type DialogsType = {
@@ -30,7 +29,6 @@ let initialState: DialogsPageType = {
         {id: '5', name: 'Victor'},
         {id: '6', name: 'Valera'},
     ],
-    newMessageBody: '',
 }
 
 export const dialogsReducer = (state = initialState, action: ActionsTypes): DialogsPageType => {
@@ -38,19 +36,13 @@ export const dialogsReducer = (state = initialState, action: ActionsTypes): Dial
         case "ADD-MESSAGE":
             let newMessage: MessagesType = {
                 id: new Date().getTime(),
-                message: action.textMessage
+                message: action.newMessageBody
             }
             return {
                 ...state,
                 messages: [...state.messages, newMessage],
-                newMessageBody: ''
             }
 
-        case "UPDATE-NEW-MESSAGE-BODY":
-            return {
-                ...state,
-                newMessageBody: action.body
-            }
         default:
             return {
                 ...state
