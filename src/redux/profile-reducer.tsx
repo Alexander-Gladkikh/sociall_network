@@ -29,18 +29,13 @@ export const profileReducer = (state = initialState, action: ActionsTypes): Prof
         case "ADD-POST":
             let newPost: PostsType = {
                 id: new Date().getTime(),
-                message: action.postText,
+                message: action.newPostText,
                 countLike: 0
             }
             return {
                 ...state,
                 posts: [...state.posts, newPost],
                 newPostText: ''
-            }
-        case "UPDATE-NEW-POST-TEXT":
-            return {
-                ...state,
-                newPostText: action.newText
             }
             case "SET-USERS-PROFILE":
             return {
@@ -58,19 +53,13 @@ export const profileReducer = (state = initialState, action: ActionsTypes): Prof
 
 }
 
-export const addPostAC = (text: string) => {
+export const addPostAC = (newPostText: string) => {
     return {
         type: "ADD-POST",
-        postText: text
+        newPostText
     } as const
 }
 
-export const updateNewPostTextAC = (text: string) => {
-    return {
-        type: "UPDATE-NEW-POST-TEXT",
-        newText: text
-    } as const
-}
 export const setUsersProfile = (profile: any) => {
     return {
         type: "SET-USERS-PROFILE",
