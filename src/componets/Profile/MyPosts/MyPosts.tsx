@@ -1,8 +1,10 @@
-import React, {ChangeEvent} from "react";
+import React from "react";
 import s from './MyPosts.module.css'
 import {Posts} from "./Post/Post";
 import {PostsType} from "../../../redux/profile-reducer";
 import {Field, reduxForm} from "redux-form";
+import {maxLengthCreator, required} from "../../../utils/validators/validators";
+import {Textarea} from "../../common/FormsControls/FormsControls";
 
 
 type MyPostsPropsType = {
@@ -14,7 +16,7 @@ type MyPostsPropsType = {
 
 export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
     const postsElement = props.posts.map((p) => <Posts key={p.id} message={p.message}
-                                                          countLike={p.countLike}/>)
+                                                       countLike={p.countLike}/>)
 
     const addNewPostBody = (values: any) => {
         props.addPost(values.newPostText);
@@ -29,11 +31,14 @@ export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
     )
 }
 
+const maxLength10 = maxLengthCreator(10)
+
 const AddPostMessage: React.FC = (props: any) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field name='newPostText' component='textarea' placeholder='Add text'/>
+                <Field name='newPostText' component={Textarea} placeholder='Add text'
+                       validate={[required, maxLength10]}/>
             </div>
             <div>
                 <button>Add post</button>
