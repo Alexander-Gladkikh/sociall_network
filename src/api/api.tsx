@@ -22,11 +22,7 @@ export const UsersAPI = {
         return instance.post(`follow/${id}`,)
             .then(response => response.data)
     },
-    login() {
-        return instance.get(`auth/me`)
-            .then(response => response.data)
 
-    },
     getProfile(profileId: any) {
         console.warn("Obsolete method. Please profileAPI object")
         return ProfileAPI.getProfile(profileId)
@@ -44,6 +40,21 @@ export const ProfileAPI = {
         return instance.put('profile/status/', {status: status})
     }
 
+}
+
+export const authAPI = {
+    me() {
+        return instance.get(`auth/me`)
+            .then(response => response.data)
+
+    },
+    login(email: any, password: any, rememberMe = false) {
+        return instance.post('auth/login', {email, password, rememberMe})
+    },
+
+    logout() {
+        return instance.delete('auth/login' )
+    }
 }
 
 

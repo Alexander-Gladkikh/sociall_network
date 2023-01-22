@@ -9,7 +9,9 @@ export const Header = (props: any) => {
                  src={'https://mllj2j8xvfl0.i.optimole.com/Lsv2lkg.cHDL~36fa1/w:auto/h:auto/q:98/https://s15165.pcdn.co/wp-content/uploads/2021/04/LEGO-Logo.png'}/>
             
             <div className={s.loginBlock}>
-                { props.isAuth ? props.login :<NavLink to={'/login'}>Login</NavLink>}
+                { props.isAuth
+                    ? <div>{props.login } - <button onClick={props.logout}>Log out</button></div>
+                    :<NavLink to={'/login'}>Login</NavLink>}
 
             </div>
         </header>
