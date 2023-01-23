@@ -11,42 +11,42 @@ import {
 import {compose} from "redux";
 
 
-class ProfileContainer extends React.Component<any>  {
+class ProfileContainer extends React.Component<any> {
 
     componentDidMount() {
-       // debugger
+        // debugger
         let profileId = this.props.router.params.profileId
-        if(!profileId) {
-            profileId = 1049;
+        if (!profileId) {
+            profileId = this.props.authorizedUserId;
         }
         this.props.getUserProfile(profileId)
         //getUserProfile(profileId)
-            this.props.getStatus(profileId)
+        this.props.getStatus(profileId)
 
 
     }
 
-    render () {
+    render() {
 
-       return <div>
-            <Profile {...this.props} profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateStatus}/>
+        return <div>
+            <Profile {...this.props} profile={this.props.profile} status={this.props.status}
+                     updateStatus={this.props.updateStatus}/>
         </div>
     }
 }
 
 
-
-
-
-const mapStateToProps = (state: AppStateType)  => {
+const mapStateToProps = (state: AppStateType) => {
     return {
         profile: state.profilePage.profile,
-        status: state.profilePage.status
+        status: state.profilePage.status,
+        authorizedUserId: state.auth.id,
+        isAuth: state.auth.isAuth
     }
 }
 
 // wrapper to use react router's v6 hooks in class component(to use HOC pattern, like in router v5)
-function withRouter(Component:  any) {
+function withRouter(Component: any) {
     function ComponentWithRouterProp(props: any) {
         let location = useLocation();
         let navigate = useNavigate();
@@ -54,7 +54,7 @@ function withRouter(Component:  any) {
         return (
             <Component
                 {...props}
-                router={{ location, navigate, params }}
+                router={{location, navigate, params}}
             />
         );
     }

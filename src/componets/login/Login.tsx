@@ -6,6 +6,7 @@ import {connect} from "react-redux";
 import {login} from "../../redux/auth-reducer";
 import {Navigate} from "react-router-dom";
 import {mapStateToPropsFactory} from "react-redux/es/connect/mapStateToProps";
+import style from '../common/FormsControls/FormsControls.module.css'
 
 const LoginForm: React.FC = (props: any) => {
     return (
@@ -30,6 +31,10 @@ const LoginForm: React.FC = (props: any) => {
                        component={Input}
                        name={'remember me'}/>remember me
             </div>
+            {props.error && <div className={style.formSummaryError}>
+                {props.error}
+            </div>}
+
             <button>Login</button>
         </form>
     );

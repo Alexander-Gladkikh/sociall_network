@@ -1,5 +1,6 @@
 import {ActionsTypes} from "./redux-store";
 import {authAPI, UsersAPI} from "../api/api";
+import {stopSubmit} from "redux-form";
 
 export type initialStateType = {
     id: number | null
@@ -54,10 +55,15 @@ export const getAuthUser = () => {
 }
 
 export const login = (email: any, password: any, rememberMe: any) => (dispatch: any) => {
+
+
     authAPI.login(email, password, rememberMe)
         .then(response => {
             if (response.data.resultCode === 0) {
                 dispatch(getAuthUser())
+            } else {
+                let messages = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error'
+                dispatch(stopSubmit('login', {_error: messages}))
             }
 
         })
