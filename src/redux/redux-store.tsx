@@ -14,6 +14,7 @@ import {
 import {authReducer, setAuthUserData} from "./auth-reducer";
 import thunkMiddleware from "redux-thunk";
 import {reducer as formReducer} from 'redux-form'
+import appReducer from "./app-reducer";
 
 export type ActionsTypes = ReturnType<typeof addPostAC>
     | ReturnType<typeof addMessageAC>
@@ -44,6 +45,7 @@ export const rootReducer = combineReducers({
     users: usersReducer,
     auth: authReducer,
     form: formReducer,
+    app: appReducer,
 });
 
 export type AppStateType = ReturnType<typeof rootReducer>

@@ -41,17 +41,14 @@ export const setAuthUserData = (id: number | null, login: string | null, email: 
     } as const
 }
 
-export const getAuthUser = () => {
+export const getAuthUser = () => (dispatch: any) => {
+    return authAPI.me().then(data => {
+        if (data.resultCode === 0) {
+            let {id, login, email} = data.data;
+            dispatch(setAuthUserData(id, login, email, true));
+        }
+    })
 
-    return (dispatch: any) => {
-        authAPI.me().then(data => {
-            if (data.resultCode === 0) {
-                let {id, login, email} = data.data;
-                dispatch(setAuthUserData(id, login, email, true));
-            }
-
-        })
-    }
 }
 
 export const login = (email: any, password: any, rememberMe: any) => (dispatch: any) => {

@@ -14,10 +14,12 @@ import {compose} from "redux";
 class ProfileContainer extends React.Component<any> {
 
     componentDidMount() {
-        // debugger
         let profileId = this.props.router.params.profileId
         if (!profileId) {
             profileId = this.props.authorizedUserId;
+            if(!profileId) {
+                this.props.router.location.pathname = '/login'
+            }
         }
         this.props.getUserProfile(profileId)
         //getUserProfile(profileId)
@@ -46,7 +48,7 @@ const mapStateToProps = (state: AppStateType) => {
 }
 
 // wrapper to use react router's v6 hooks in class component(to use HOC pattern, like in router v5)
-function withRouter(Component: any) {
+export function withRouter(Component: any) {
     function ComponentWithRouterProp(props: any) {
         let location = useLocation();
         let navigate = useNavigate();
