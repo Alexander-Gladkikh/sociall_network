@@ -1,14 +1,13 @@
 import React from "react";
 import s from './ProfileInfo.module.css'
 import {Preloader} from "../../common/preloader/Preloader";
-import ProfileStatus from "./ProfileStatus";
 import ProfileStatusWidthHooks from "./ProfileStatusWidthHooks";
 
 
-export const ProfileInfo = (props: any) => {
+export const ProfileInfo:React.FC<any> = ({profile, status, updateStatus}) => {
 
 
-  if (!props.profile) {
+  if (!profile) {
       return <Preloader/>
   }
 
@@ -21,7 +20,7 @@ export const ProfileInfo = (props: any) => {
                 <img src={'https://social-network.samuraijs.com/activecontent/images/users/26825/user-small.jpg?v=0'}/>
                 ava + description
             </div>
-            <ProfileStatusWidthHooks status={props.status} updateStatus={props.updateStatus}/>
+            <ProfileStatusWidthHooks status={status} updateStatus={updateStatus}/>
         </div>
     )
 }

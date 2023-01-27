@@ -5,12 +5,16 @@ import {required} from "../../utils/validators/validators";
 import {connect} from "react-redux";
 import {login} from "../../redux/auth-reducer";
 import {Navigate} from "react-router-dom";
-import {mapStateToPropsFactory} from "react-redux/es/connect/mapStateToProps";
 import style from '../common/FormsControls/FormsControls.module.css'
 
-const LoginForm: React.FC = (props: any) => {
+type LoginFormPropsType = {
+    handleSubmit: any
+    error: any
+}
+
+const LoginForm: React.FC<LoginFormPropsType> = ({handleSubmit, error}) => {
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <div>
                 <Field placeholder={'Email'}
                        component={Input}
@@ -31,8 +35,8 @@ const LoginForm: React.FC = (props: any) => {
                        component={Input}
                        name={'remember me'}/>remember me
             </div>
-            {props.error && <div className={style.formSummaryError}>
-                {props.error}
+            {error && <div className={style.formSummaryError}>
+                {error}
             </div>}
 
             <button>Login</button>

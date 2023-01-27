@@ -44,26 +44,11 @@ export type UsersPropsType = MapStatePropsType & MapDispatchPropsType;
 
 class UsersContainer extends React.Component<UsersPropsType> {
     componentDidMount() {
-        // this.props.toggleIsFetching(true)
-        // UsersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-        //     this.props.setUsers(data.items)
-        //     //this.props.setTotalUserCount(response.data.totalCount)
-        //     this.props.toggleIsFetching(false)
-        // })
-
         this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
 
     onPageChanged = (pageNumber: number) => {
-
         this.props.getUsers(pageNumber, this.props.pageSize)
-
-        // this.props.setCurrentPage(pageNumber)
-        // this.props.toggleIsFetching(true)
-        // UsersAPI.getUsers(pageNumber, this.props.pageSize).then(data => {
-        //     this.props.setUsers(data.items)
-        //     this.props.toggleIsFetching(false)
-        // })
     }
 
     render() {
