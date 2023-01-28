@@ -6,17 +6,17 @@ import {Preloader} from "../../common/preloader/Preloader";
 class ProfileStatus extends React.Component<any, any> {
 
     state = {
-        editMode: true,
+        editMode: false,
         status: this.props.status
     }
     activateEditMode = () => {
         this.setState(
-            {editMode: false}
+            {editMode: true}
         )
     }
     deactivateEditMode = () => {
         this.setState(
-            {editMode: true}
+            {editMode: false}
         )
         this.props.updateStatus(this.state.status)
     }
