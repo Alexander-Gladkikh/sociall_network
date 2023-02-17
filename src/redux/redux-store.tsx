@@ -1,5 +1,5 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
-import {addPostAC, profileReducer, setStatus, setUsersProfile} from "./profile-reducer";
+import {addPostAC, profileReducer, savePhotoSuccess, setStatus, setUsersProfile} from "./profile-reducer";
 import {dialogsReducer} from "./dialogs-reducer";
 import {navbarReducer} from "./navbar-reducer";
 import {
@@ -28,6 +28,7 @@ export type ActionsTypes = ReturnType<typeof addPostAC>
     | ReturnType<typeof setAuthUserData>
     | ReturnType<typeof toggleFollowingProgress>
     | ReturnType<typeof setStatus>
+    | ReturnType<typeof savePhotoSuccess>
 
 
 export const addMessageAC = (newMessageBody: string) => {

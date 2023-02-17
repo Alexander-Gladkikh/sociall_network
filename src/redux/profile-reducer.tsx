@@ -47,6 +47,10 @@ export const profileReducer = (state = initialState, action: ActionsTypes): Prof
                 ...state,
                 status: action.status
             }
+        case "SAVE-PHOTO-SUCCESS":
+            return {
+                ...state, profile: {...state.profile, photos: action.photos}
+            }
         default :
             return {...state}
     }
@@ -59,7 +63,6 @@ export const addPostAC = (newPostText: string) => {
         newPostText
     } as const
 }
-
 export const setUsersProfile = (profile: any) => {
     return {
         type: "SET-USERS-PROFILE",
@@ -72,21 +75,33 @@ export const setStatus = (status: any) => {
         status
     } as const
 }
+export const savePhotoSuccess = (photos: any) => {
+    return {
+        type: "SAVE-PHOTO-SUCCESS",
+        photos
+    } as const
+}
+
 
 export const getUserProfile = (profileId: any) => async (dispatch: any) => {
     const response = await UsersAPI.getProfile(profileId)
         dispatch(setUsersProfile(response.data))
 }
-
 export const getStatus = (profileId: any) => async (dispatch: any) => {
     const response = await ProfileAPI.getStatus(profileId)
         dispatch(setStatus(response.data))
 }
-
 export const updateStatus = (status: any) => async (dispatch: any) => {
     const response = await ProfileAPI.updateStatus(status)
         if (response.data.resultCode === 0) {
             dispatch(setStatus(status))
+        }
+}
+
+export const savePhoto = (file: any) => async (dispatch: any) => {
+    const response = await ProfileAPI.savePhoto(file)
+        if (response.data.resultCode === 0) {
+            dispatch(savePhotoSuccess(response.data.data.photos))
         }
 }
 
