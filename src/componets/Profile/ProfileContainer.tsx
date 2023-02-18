@@ -1,7 +1,7 @@
 import React from "react";
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
-import {getStatus, getUserProfile, savePhoto, updateStatus} from "../../redux/profile-reducer";
+import {getStatus, getUserProfile, savePhoto, saveProfile, updateStatus} from "../../redux/profile-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {
     useLocation,
@@ -79,7 +79,7 @@ export function withRouter(Component: any) {
 
 //setUsersProfile
 
-export default connect(mapStateToProps, {getUserProfile, getStatus, updateStatus, savePhoto})(compose(
+export default connect(mapStateToProps, {getUserProfile, getStatus, updateStatus, savePhoto, saveProfile})(compose(
     withRouter,
     //widthAuthRedirect
 )(ProfileContainer));

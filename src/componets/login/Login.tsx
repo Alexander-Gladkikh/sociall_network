@@ -1,6 +1,6 @@
 import React from 'react';
-import {Field, reduxForm} from "redux-form";
-import {Input} from "../common/FormsControls/FormsControls";
+import {reduxForm} from "redux-form";
+import {createField, Input} from "../common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
 import {connect} from "react-redux";
 import {login} from "../../redux/auth-reducer";
@@ -15,26 +15,10 @@ type LoginFormPropsType = {
 const LoginForm: React.FC<LoginFormPropsType> = ({handleSubmit, error}) => {
     return (
         <form onSubmit={handleSubmit}>
-            <div>
-                <Field placeholder={'Email'}
-                       component={Input}
-                       name={'email'}
-                       validate={[required]}
-                />
-            </div>
-            <div>
-                <Field placeholder={'Password'}
-                       component={Input}
-                       name={'password'}
-                       validate={[required]}
-                       type={'password'}
-                />
-            </div>
-            <div>
-                <Field type={"checkbox"}
-                       component={Input}
-                       name={'remember me'}/>remember me
-            </div>
+            {createField('Email', 'email', [required], Input, {type: 'text'})}
+            {createField('Password', 'password', [required], Input, {type: 'password'})}
+            {createField('', 'remember me', [], Input, {type: 'checkbox'})}
+
             {error && <div className={style.formSummaryError}>
                 {error}
             </div>}

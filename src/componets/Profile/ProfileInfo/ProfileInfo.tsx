@@ -1,12 +1,15 @@
-import React from "react";
+import React, {useState} from "react";
 import s from './ProfileInfo.module.css'
 import {Preloader} from "../../common/preloader/Preloader";
 import ProfileStatusWidthHooks from "./ProfileStatusWidthHooks";
 import userPhoto from "../../../assets/images/pngtree-users-vector-icon-png-image_3725294.jpg";
+import ProfileDataForm from "./ProfileDataForm";
+import ProfileDataFormReduxForm from "./ProfileDataForm";
 
 
-export const ProfileInfo: React.FC<any> = ({profile, status, updateStatus, isOwner, savePhoto}) => {
+export const ProfileInfo: React.FC<any> = ({profile, status, updateStatus, isOwner, savePhoto, saveProfile}) => {
 
+const [editMode, setEditMode] = useState<boolean>(false)
 
     if (!profile) {
         return <Preloader/>
@@ -18,6 +21,11 @@ export const ProfileInfo: React.FC<any> = ({profile, status, updateStatus, isOwn
         }
     }
 
+    const onSubmit = (formData: any) => {
+        saveProfile(formData)
+        setEditMode(false)
+    }
+
     return (
         <div className={s.content}>
             <div>
@@ -26,7 +34,11 @@ export const ProfileInfo: React.FC<any> = ({profile, status, updateStatus, isOwn
             <div className={s.descriptionBlock}>
                 <img className={s.mainPhoto} src={profile.photos.large || userPhoto}/>
                 {isOwner && <input type={'file'} onChange={onMainPhotoSelected}/>}
-                <ProfileData profile={profile}/>
+
+                {editMode
+                    ? <ProfileDataFormReduxForm initialValues={profile} onSubmit={onSubmit}/>
+                    : <ProfileData goToEditMode={() => setEditMode(true)} profile={profile} isOwner={isOwner}/>}
+
                 <ProfileStatusWidthHooks status={status} updateStatus={updateStatus}/>
             </div>
         </div>
@@ -41,8 +53,9 @@ const Contacts: React.FC<any> = ({contactsTitle, contactsValue}) => {
     )
 }
 
-const ProfileData:React.FC<any> = ({profile}) => {
+const ProfileData:React.FC<any> = ({profile, isOwner, goToEditMode}) => {
     return <div>
+        {isOwner && <div><button onClick={goToEditMode}>Edit</button></div>}
         <div>
             <b>Full name </b>: {profile.fullName}
         </div>
@@ -68,3 +81,4 @@ const ProfileData:React.FC<any> = ({profile}) => {
         </div>
     </div>
 }
+
