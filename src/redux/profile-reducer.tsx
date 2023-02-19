@@ -1,5 +1,6 @@
 import {ActionsTypes} from "./redux-store";
 import {ProfileAPI, UsersAPI} from "../api/api";
+import {stopSubmit} from "redux-form";
 
 
 export type ProfilePageType = {
@@ -110,6 +111,9 @@ export const saveProfile = (profile: any) => async (dispatch: any, getState: any
     const response = await ProfileAPI.saveProfile(profile)
     if (response.data.resultCode === 0) {
         dispatch(getUserProfile(userId))
+    }
+    else {
+        dispatch(stopSubmit('edit-profile', {_error: response.data.messages[0]}))
     }
 }
 
