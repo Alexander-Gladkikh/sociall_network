@@ -1,9 +1,17 @@
-import React from "react";
-import s from './ProfileInfo.module.css'
-import {Preloader} from "../../common/preloader/Preloader";
+import React, {ChangeEvent} from "react";
 
 
-class ProfileStatus extends React.Component<any, any> {
+type PropsType = {
+    status: string
+    updateStatus: (status: string) => void
+}
+type StateType = {
+    editMode: boolean,
+    status: string
+}
+
+
+class ProfileStatus extends React.Component<PropsType, StateType> {
 
     state = {
         editMode: false,
@@ -21,14 +29,14 @@ class ProfileStatus extends React.Component<any, any> {
         this.props.updateStatus(this.state.status)
     }
 
-    onStatusChange = (e: any) => {
+    onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
         this.setState({
                 status: e.currentTarget.value
             }
         )
     }
 
-   componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<any>, snapshot?: any) {
+   componentDidUpdate(prevProps: PropsType, prevState: StateType) {
         if(prevProps.status !== this.props.status) {
             this.setState({
                 status: this.props.status

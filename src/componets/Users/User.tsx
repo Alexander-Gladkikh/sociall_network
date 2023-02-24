@@ -4,7 +4,7 @@ import userPhoto from "../../assets/images/pngtree-users-vector-icon-png-image_3
 
 type UserPropsType = {
     user: any
-    followingInProgress: []
+    followingInProgress: Array<number>
     follow: (userId: number) => void
     unfollow: (userId: number) => void
 }

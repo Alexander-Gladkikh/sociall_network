@@ -2,7 +2,8 @@ import React from "react";
 import {MyPosts} from "./MyPosts";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../redux/redux-store";
-import {addPostAC, ProfilePageType} from "../../../redux/profile-reducer";
+import {addPostAC} from "../../../redux/profile-reducer";
+import {ProfilePageType} from "../../../types/types";
 
 const mapStateToProps = (state: AppStateType): ProfilePageType => {
     return {

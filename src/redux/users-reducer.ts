@@ -11,6 +11,9 @@ const SET_TOTAL_USER_COUNT = 'SET-TOTAL-USER-COUNT'
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING'
 const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE-IS-FOLLOWING-PROGRESS'
 
+
+
+
 let initialState = {
     users: [] as Array<UserType>,
     pageSize: 10,

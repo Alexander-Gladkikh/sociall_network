@@ -37,3 +37,11 @@ export type UsersLocationType = {
     city: string
     country: string
 }
+
+export type ProfilePageType = {
+    posts: Array<PostsType>
+    newPostText: string
+    profile?: ProfileType | null,
+    status?: string
+}
+
