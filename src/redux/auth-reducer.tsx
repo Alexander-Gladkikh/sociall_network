@@ -1,5 +1,5 @@
 import {ActionsTypes} from "./redux-store";
-import {authAPI, UsersAPI} from "../api/api";
+import {authAPI, securityAPI, UsersAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
 
 export type initialStateType = {
@@ -7,6 +7,7 @@ export type initialStateType = {
     email: string | null
     login: string | null
     isAuth: boolean
+    captchaUrl?: any
 }
 
 let initialState: initialStateType = {
@@ -14,6 +15,7 @@ let initialState: initialStateType = {
     email: null,
     login: null,
     isAuth: false,
+    captchaUrl: null
 }
 
 export const authReducer = (state: initialStateType = initialState, action: ActionsTypes): initialStateType => {
@@ -21,7 +23,6 @@ export const authReducer = (state: initialStateType = initialState, action: Acti
     switch (action.type) {
 
         case "SET-USER-DATA":
-
             return {
                 ...state,
                 ...action.payload
@@ -41,6 +42,13 @@ export const setAuthUserData = (id: number | null, login: string | null, email: 
     } as const
 }
 
+export const getCaptchaUrlSuccess = (captchaUrl: any) => {
+    return {
+        type: 'GET-CAPTCHA-URL-SUCCESS',
+        payload: {captchaUrl}
+    } as const
+}
+
 export const getAuthUser = () => async (dispatch: any) => {
     const response = await authAPI.me();
     if (response.resultCode === 0) {
@@ -54,9 +62,18 @@ export const login = (email: any, password: any, rememberMe: any) => async (disp
     if (response.data.resultCode === 0) {
         dispatch(getAuthUser())
     } else {
+        if (response.data.resultCode === 10) {
+            dispatch(getCaptchaUrl)
+        }
         let messages = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error'
         dispatch(stopSubmit('login', {_error: messages}))
     }
+}
+
+export const getCaptchaUrl = () => async (dispatch: any) => {
+    const response = await securityAPI.getCaptchaUrl()
+    const captchaUrl = response.data.url
+    dispatch(getCaptchaUrlSuccess(captchaUrl))
 }
 
 export const logout = () => async (dispatch: any) => {

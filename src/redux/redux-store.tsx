@@ -11,10 +11,10 @@ import {
     unfollowSuccess,
     usersReducer
 } from "./users-reducer";
-import {authReducer, setAuthUserData} from "./auth-reducer";
+import {authReducer, getCaptchaUrlSuccess, setAuthUserData} from "./auth-reducer";
 import thunkMiddleware from "redux-thunk";
 import {reducer as formReducer} from 'redux-form'
-import appReducer from "./app-reducer";
+import appReducer, {initializedSuccess} from "./app-reducer";
 
 export type ActionsTypes = ReturnType<typeof addPostAC>
     | ReturnType<typeof addMessageAC>
@@ -29,6 +29,8 @@ export type ActionsTypes = ReturnType<typeof addPostAC>
     | ReturnType<typeof toggleFollowingProgress>
     | ReturnType<typeof setStatus>
     | ReturnType<typeof savePhotoSuccess>
+    | ReturnType<typeof getCaptchaUrlSuccess>
+    | ReturnType<typeof initializedSuccess>
 
 
 export const addMessageAC = (newMessageBody: string) => {

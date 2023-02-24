@@ -10,14 +10,17 @@ import style from '../common/FormsControls/FormsControls.module.css'
 type LoginFormPropsType = {
     handleSubmit: any
     error: any
+    captchaUrl?: any
 }
 
-const LoginForm: React.FC<LoginFormPropsType> = ({handleSubmit, error}) => {
+const LoginForm: React.FC<LoginFormPropsType> = ({handleSubmit, error, captchaUrl}) => {
     return (
         <form onSubmit={handleSubmit}>
             {createField('Email', 'email', [required], Input, {type: 'text'})}
             {createField('Password', 'password', [required], Input, {type: 'password'})}
             {createField('', 'remember me', [], Input, {type: 'checkbox'})}
+
+            { captchaUrl && <img src={captchaUrl}/>}
 
             {error && <div className={style.formSummaryError}>
                 {error}
@@ -30,7 +33,7 @@ const LoginForm: React.FC<LoginFormPropsType> = ({handleSubmit, error}) => {
 
 const LoginReduxForm = reduxForm({form: 'login'})(LoginForm)
 
-const Login: React.FC = (props:any) => {
+const Login = (props:any) => {
     const onSubmit = (formData: any) => {
         props.login(formData.email, formData.password, formData.rememberMe)
     }
@@ -42,12 +45,14 @@ const Login: React.FC = (props:any) => {
     return (
         <div>
             <h1>Login</h1>
+            {/*captchaUrl={props.captchaUrl}*/}
             <LoginReduxForm onSubmit={onSubmit}/>
         </div>
     );
 };
 
 const mapStateToProps = (state: any) => ({
+    captchaUrl: state.auth.captchaUrl,
     isAuth: state.auth.isAuth
 })
 
