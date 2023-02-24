@@ -1,5 +1,5 @@
 import React from 'react';
-import {FriendsType} from "../../redux/navbar-reducer";
+import {FriendsType} from "../../redux/sidebar-reducer";
 
 
 type FriendsPropsType = {

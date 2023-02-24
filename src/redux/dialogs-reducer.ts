@@ -1,5 +1,6 @@
 import {ActionsTypes} from "./redux-store";
 
+const SEND_MESSAGE = "SEND-MESSAGE"
 
 export type DialogsPageType = {
     messages: MessagesType[]
@@ -31,9 +32,9 @@ let initialState: DialogsPageType = {
     ],
 }
 
-export const dialogsReducer = (state = initialState, action: ActionsTypes): DialogsPageType => {
+export const dialogsReducer = (state: DialogsPageType = initialState, action: ActionsTypes): DialogsPageType => {
     switch (action.type) {
-        case "ADD-MESSAGE":
+        case "SEND-MESSAGE":
             let newMessage: MessagesType = {
                 id: new Date().getTime(),
                 message: action.newMessageBody
@@ -49,6 +50,17 @@ export const dialogsReducer = (state = initialState, action: ActionsTypes): Dial
             }
     }
 
+}
+
+type SendMessageCreatorActionType = {
+    type: typeof SEND_MESSAGE
+    newMessageBody: string
+}
+export const sendMessageCreator = (newMessageBody: string): SendMessageCreatorActionType => {
+    return {
+        type: "SEND-MESSAGE",
+        newMessageBody
+    } as const
 }
 
 

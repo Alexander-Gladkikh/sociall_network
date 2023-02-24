@@ -1,7 +1,7 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import {addPostAC, profileReducer, savePhotoSuccess, setStatus, setUsersProfile} from "./profile-reducer";
-import {dialogsReducer} from "./dialogs-reducer";
-import {navbarReducer} from "./navbar-reducer";
+import {sendMessageCreator, dialogsReducer} from "./dialogs-reducer";
+import {navbarReducer} from "./sidebar-reducer";
 import {
     followSuccess,
     setCurrentPage,
@@ -17,7 +17,7 @@ import {reducer as formReducer} from 'redux-form'
 import appReducer, {initializedSuccess} from "./app-reducer";
 
 export type ActionsTypes = ReturnType<typeof addPostAC>
-    | ReturnType<typeof addMessageAC>
+    | ReturnType<typeof sendMessageCreator>
     | ReturnType<typeof followSuccess>
     | ReturnType<typeof unfollowSuccess>
     | ReturnType<typeof setUsers>
@@ -30,15 +30,6 @@ export type ActionsTypes = ReturnType<typeof addPostAC>
     | ReturnType<typeof setStatus>
     | ReturnType<typeof savePhotoSuccess>
     | ReturnType<typeof getCaptchaUrlSuccess>
-    | ReturnType<typeof initializedSuccess>
-
-
-export const addMessageAC = (newMessageBody: string) => {
-    return {
-        type: "ADD-MESSAGE",
-        newMessageBody
-    } as const
-}
 
 
 export const rootReducer = combineReducers({
