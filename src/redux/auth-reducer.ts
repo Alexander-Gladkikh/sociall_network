@@ -11,7 +11,7 @@ export type InitialStateType = {
     email: string | null
     login: string | null
     isAuth: boolean
-    captchaUrl?: string | null
+    captchaUrl: string | null
 }
 
 let initialState: InitialStateType = {
