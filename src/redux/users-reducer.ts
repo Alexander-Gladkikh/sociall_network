@@ -3,15 +3,7 @@ import {updateObjectInArray} from "../utils/objects-helpers";
 import {UserType} from "../types/types";
 import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
-import {AppStateType} from "./redux-store";
-
-const FOLLOW = 'FOLLOW'
-const UNFOLLOW = 'UNFOLLOW'
-const SET_USERS = 'SET-USERS'
-const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
-const SET_TOTAL_USER_COUNT = 'SET-TOTAL-USER-COUNT'
-const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING'
-const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE-IS-FOLLOWING-PROGRESS'
+import {AppStateType, InferActionsType} from "./redux-store";
 
 let initialState = {
     users: [] as Array<UserType>,
@@ -61,86 +53,51 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
 
 }
 
-type ActionsTypes = FollowSuccessActionType | UnfollowSuccessActionType | SetUsersActionType |
-    SetCurrentPageActionType | SetTotalUserCountActionType | ToggleFollowingProgressActionType |
-    ToggleIsFetchingActionType
+type ActionsTypes = InferActionsType<typeof actions>
 
-type FollowSuccessActionType = {
-    type: typeof FOLLOW
-    userId: number
-}
-export const followSuccess = (userId: number): FollowSuccessActionType => {
-    return {
-        type: 'FOLLOW',
-        userId
-    } as const
-}
-
-type UnfollowSuccessActionType = {
-    type: typeof UNFOLLOW
-    userId: number
-}
-export const unfollowSuccess = (userId: number): UnfollowSuccessActionType => {
-    return {
-        type: 'UNFOLLOW',
-        userId
-    } as const
-}
-
-type SetUsersActionType = {
-    type: typeof SET_USERS
-    users: UserType[]
-}
-export const setUsers = (users: UserType[]): SetUsersActionType => {
-    return {
-        type: 'SET-USERS',
-        users
-    } as const
-}
-
-type SetCurrentPageActionType = {
-    type: typeof SET_CURRENT_PAGE
-    currentPage: number
-}
-export const setCurrentPage = (currentPage: number): SetCurrentPageActionType => {
-    return {
-        type: 'SET-CURRENT-PAGE',
-        currentPage
-    } as const
-}
-
-type SetTotalUserCountActionType = {
-    type: typeof SET_TOTAL_USER_COUNT
-    count: number
-}
-export const setTotalUserCount = (count: number): SetTotalUserCountActionType => {
-    return {
-        type: 'SET-TOTAL-USER-COUNT',
-        count
-    } as const
-}
-
-type ToggleIsFetchingActionType = {
-    type: typeof TOGGLE_IS_FETCHING
-    isFetching: boolean
-}
-export const toggleIsFetching = (isFetching: boolean): ToggleIsFetchingActionType => {
-    return {
-        type: 'TOGGLE-IS-FETCHING',
-        isFetching
-    } as const
-}
-
-type ToggleFollowingProgressActionType = {
-    type: typeof TOGGLE_IS_FOLLOWING_PROGRESS
-    isFetching: boolean
-    userId: number
-}
-export const toggleFollowingProgress = (isFetching: boolean, userId: number): ToggleFollowingProgressActionType => {
-    return {
-        type: 'TOGGLE-IS-FOLLOWING-PROGRESS',
-        isFetching, userId
-    } as const
+export const actions = {
+    followSuccess: (userId: number) => {
+        return {
+            type: 'FOLLOW',
+            userId
+        } as const
+    },
+    unfollowSuccess: (userId: number) => {
+        return {
+            type: 'UNFOLLOW',
+            userId
+        } as const
+    },
+    setUsers: (users: UserType[]) => {
+        return {
+            type: 'SET-USERS',
+            users
+        } as const
+    },
+    setCurrentPage: (currentPage: number) => {
+        return {
+            type: 'SET-CURRENT-PAGE',
+            currentPage
+        } as const
+    },
+    setTotalUserCount: (count: number) => {
+        return {
+            type: 'SET-TOTAL-USER-COUNT',
+            count
+        } as const
+    },
+    toggleIsFetching: (isFetching: boolean) => {
+        return {
+            type: 'TOGGLE-IS-FETCHING',
+            isFetching
+        } as const
+    },
+    toggleFollowingProgress: (isFetching: boolean, userId: number) => {
+        return {
+            type: 'TOGGLE-IS-FOLLOWING-PROGRESS',
+            isFetching, userId
+        } as const
+    }
 }
 
 type DispatchType = Dispatch<ActionsTypes>
@@ -148,29 +105,28 @@ type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsTypes>
 
 export const requestUsers = (page: number, pageSize: number): ThunkType => {
     return async (dispatch) => {
-        dispatch(toggleIsFetching(true));
-        dispatch(setCurrentPage(page))
+        dispatch(actions.toggleIsFetching(true));
+        dispatch(actions.setCurrentPage(page))
 
         const data = await UsersAPI.getUsers(page, pageSize)
-        dispatch(setUsers(data.items))
-        dispatch(toggleIsFetching(false))
+        dispatch(actions.setUsers(data.items))
+        dispatch(actions.toggleIsFetching(false))
     }
 }
 
-const _followUnfollowFlow = async (dispatch: DispatchType, userId: number, apiMethod: any, action: (userId: number) => FollowSuccessActionType |
-    UnfollowSuccessActionType) => {
-    dispatch(toggleFollowingProgress(true, userId));
+const _followUnfollowFlow = async (dispatch: DispatchType, userId: number, apiMethod: any, action: (userId: number) => ActionsTypes) => {
+    dispatch(actions.toggleFollowingProgress(true, userId));
     const data = await apiMethod(userId)
     if (data.resultCode == 0) {
         dispatch(action(userId))
     }
-    dispatch(toggleFollowingProgress(false, userId));
+    dispatch(actions.toggleFollowingProgress(false, userId));
 }
 
 export const follow = (userId: number): ThunkType => {
     return async (dispatch) => {
         const apiMethod = UsersAPI.follow.bind(userId)
-        await _followUnfollowFlow(dispatch, userId, apiMethod, followSuccess)
+        await _followUnfollowFlow(dispatch, userId, apiMethod, actions.followSuccess)
 
     }
 }
@@ -178,7 +134,7 @@ export const follow = (userId: number): ThunkType => {
 export const unfollow = (userId: number): ThunkType => {
     return async (dispatch) => {
         let apiMethod = UsersAPI.unfollow.bind(userId)
-        await _followUnfollowFlow(dispatch, userId, apiMethod, unfollowSuccess)
+        await _followUnfollowFlow(dispatch, userId, apiMethod, actions.unfollowSuccess)
     }
 }
 

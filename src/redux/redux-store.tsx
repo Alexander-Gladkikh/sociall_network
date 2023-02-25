@@ -3,12 +3,6 @@ import {addPostAC, profileReducer, savePhotoSuccess, setStatus, setUsersProfile}
 import {sendMessageCreator, dialogsReducer} from "./dialogs-reducer";
 import {navbarReducer} from "./sidebar-reducer";
 import {
-    followSuccess,
-    setCurrentPage,
-    setTotalUserCount,
-    setUsers, toggleFollowingProgress,
-    toggleIsFetching,
-    unfollowSuccess,
     usersReducer
 } from "./users-reducer";
 import {authReducer, getCaptchaUrlSuccess, setAuthUserData} from "./auth-reducer";
@@ -18,15 +12,8 @@ import appReducer, {initializedSuccess} from "./app-reducer";
 
 export type ActionsTypes = ReturnType<typeof addPostAC>
     | ReturnType<typeof sendMessageCreator>
-    | ReturnType<typeof followSuccess>
-    | ReturnType<typeof unfollowSuccess>
-    | ReturnType<typeof setUsers>
-    | ReturnType<typeof setCurrentPage>
-    | ReturnType<typeof setTotalUserCount>
-    | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof setUsersProfile>
     | ReturnType<typeof setAuthUserData>
-    | ReturnType<typeof toggleFollowingProgress>
     | ReturnType<typeof setStatus>
     | ReturnType<typeof savePhotoSuccess>
     | ReturnType<typeof getCaptchaUrlSuccess>
@@ -41,6 +28,10 @@ export const rootReducer = combineReducers({
     form: formReducer,
     app: appReducer,
 });
+
+type PropertiesTypes<T> = T extends {[key: string]: infer U} ? U : never
+
+export type InferActionsType<T extends {[key: string]: (...args: any[]) => any}> = ReturnType<PropertiesTypes<T>>
 
 export type AppStateType = ReturnType<typeof rootReducer>
 
