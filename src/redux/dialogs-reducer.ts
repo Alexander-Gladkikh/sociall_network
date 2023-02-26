@@ -9,7 +9,7 @@ export type MessagesType = {
     message: string
 }
 
-let initialState = {
+const initialState = {
     messages: [
         {id: 1, message: 'Hi'},
         {id: 2, message: 'How is your it-kamasutra'},
@@ -47,7 +47,7 @@ export const dialogsReducer = (state = initialState, action: ActionsType): Initi
 }
 
 export const actions = {
-    sendMessageCreator:  (newMessageBody: string) => {
+    sendMessage:  (newMessageBody: string) => {
         return {
             type: "SN/DIALOGS/SEND-MESSAGE",
             newMessageBody
@@ -55,7 +55,7 @@ export const actions = {
     }
 }
 
-type InitialState = typeof initialState
+export type InitialState = typeof initialState
 type ActionsType = InferActionsType<typeof actions>
 
 

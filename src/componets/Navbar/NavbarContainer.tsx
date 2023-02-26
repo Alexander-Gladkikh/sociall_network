@@ -2,9 +2,9 @@ import React from "react";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {Navbar} from "./Navbar";
-import {NavBarPageType} from "../../redux/sidebar-reducer";
 
-const MapStateToProps = (state: AppStateType): NavBarPageType => {
+
+const MapStateToProps = (state: AppStateType) => {
     return {
         friends: state.navBarPage.friends,
         titlePage: state.navBarPage.titlePage

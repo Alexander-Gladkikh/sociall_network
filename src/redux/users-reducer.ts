@@ -1,9 +1,8 @@
-import {updateObjectInArray} from "../utils/objects-helpers";
 import {UserType} from "../types/types";
 import {Dispatch} from "redux";
-import {ThunkAction} from "redux-thunk";
-import {AppStateType, BaseThunkType, InferActionsType} from "./redux-store";
+import {BaseThunkType, InferActionsType} from "./redux-store";
 import {usersAPI} from "../api/usersAPI";
+import {updateObjectInArray} from "../utils/objects-helpers";
 
 let initialState = {
     users: [] as Array<UserType>,

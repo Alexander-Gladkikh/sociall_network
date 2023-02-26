@@ -2,32 +2,39 @@ import React from "react";
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogsItem/DialogsItem";
 import {Message} from "./Messages/Messages";
-import {DialogsType, MessagesType} from "../../redux/dialogs-reducer";
-import {Field, reduxForm} from "redux-form";
+import {DialogsType, InitialState, MessagesType} from "../../redux/dialogs-reducer";
+import {InjectedFormProps, reduxForm} from "redux-form";
 import {maxLengthCreator, required} from "../../utils/validators/validators";
-import {Textarea} from "../common/FormsControls/FormsControls";
+import {createField, Textarea} from "../common/FormsControls/FormsControls";
 
-type dialogsPropsType = {
-    dialogs: DialogsType[]
-    messages: MessagesType[]
-    addMessage: (text: string) => void
-    isAuth?: boolean
+
+type Props = {
+    dialogsPage: InitialState
+    sendMessage: (messageText: string) => void
 }
 
+type NewMessageFormValuesType = {
+    newMessageBody: string
+}
 
-export const Dialogs: React.FC<dialogsPropsType> = (props) => {
+type DialogsFormValuesTypeKeys = Extract<keyof NewMessageFormValuesType, string>
 
-    let dialogsElement = props.dialogs.map((m: DialogsType) =>
+
+export const Dialogs: React.FC<Props> = (props) => {
+
+    const state = props.dialogsPage
+
+    let dialogsElement = state.dialogs.map((m: DialogsType) =>
         <DialogItem key={m.id} name={m.name}
                     id={m.id}/>)
 
-    let messagesElement = props.messages.map((m: MessagesType) =>
+    let messagesElement = state.messages.map((m: MessagesType) =>
         <Message key={m.id}
                  message={m.message}
                  id={m.id}/>)
 
-    const addNewMessage = (values: any) => {
-        props.addMessage(values.newMessageBody)
+    const addNewMessage = (values: { newMessageBody: string }) => {
+        props.sendMessage(values.newMessageBody)
     }
 
 
@@ -46,23 +53,19 @@ export const Dialogs: React.FC<dialogsPropsType> = (props) => {
 }
 
 const maxLength50 = maxLengthCreator(50)
-
-const AddMessageForm = (props: any) => {
+type PropsAddMessageType = {}
+const AddMessageForm:React.FC<InjectedFormProps<NewMessageFormValuesType, PropsAddMessageType> & PropsAddMessageType>  = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field
-                    component={Textarea}
-                    name='newMessageBody'
-                    validate={[required, maxLength50]}
-                    placeholder='Enter your message'/>
+                {createField<DialogsFormValuesTypeKeys>('Enter your message', 'newMessageBody', [required, maxLength50], Textarea)}
             </div>
             <div>
-                <button>Add Message</button>
+                <button>Send</button>
             </div>
         </form>
     )
 }
 
 
-const AddMessageFormRedux = reduxForm({form: 'dialogsAddMessageBody'})(AddMessageForm)
+const AddMessageFormRedux = reduxForm<NewMessageFormValuesType>({form: 'dialogsAddMessageBody'})(AddMessageForm)

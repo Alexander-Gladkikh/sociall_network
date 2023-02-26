@@ -4,7 +4,7 @@ import {authAPI} from "../api/authAPI";
 import {securityAPI} from "../api/securityAPI";
 import {ResultCodeForCaptcha, ResultCodes} from "../api/api";
 
-export type InitialStateType = typeof initialState
+
 
 let initialState = {
     id: null as (number | null),
@@ -81,6 +81,8 @@ export const logout = (): ThunkType => async (dispatch) => {
     }
 }
 
+
+type InitialStateType = typeof initialState
 type ActionsType = InferActionsType<typeof actions>
 type ThunkType = BaseThunkType<ActionsType | ReturnType<typeof stopSubmit>>
 
