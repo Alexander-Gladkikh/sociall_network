@@ -1,7 +1,8 @@
 import {ActionsTypes} from "./redux-store";
-import {authAPI, securityAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
-import {ResultCodeForCaptcha, ResultCodes} from "../types/types";
+import {authAPI} from "../api/authAPI";
+import {securityAPI} from "../api/securityAPI";
+import {ResultCodeForCaptcha, ResultCodes} from "../api/api";
 
 const SET_USER_DATA = 'SET-USER-DATA'
 const GET_CAPTCHA_URL_SUCCESS = 'GET-CAPTCHA-URL-SUCCESS'
@@ -90,8 +91,8 @@ export const login = (email: string, password: string, rememberMe: boolean) => a
 }
 
 export const getCaptchaUrl = () => async (dispatch: any) => {
-    const response = await securityAPI.getCaptchaUrl()
-    const captchaUrl = response.data.url
+    const data = await securityAPI.getCaptchaUrl()
+    const captchaUrl = data.url
     dispatch(getCaptchaUrlSuccess(captchaUrl))
 }
 
