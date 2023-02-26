@@ -1,4 +1,4 @@
-import {addPostAC, profileReducer} from "./profile-reducer";
+import {actions, profileReducer} from "./profile-reducer";
 
 let state = {
     posts: [
@@ -11,7 +11,7 @@ let state = {
 }
 
 it('length of posts should be incremented', () => {
-    let action = addPostAC('new text')
+    let action = actions.addPostAC('new text')
 
     let newState = profileReducer(state, action)
 
@@ -19,7 +19,7 @@ it('length of posts should be incremented', () => {
 })
 
 it('message of new post should be correct', () => {
-    let action = addPostAC('new text')
+    let action = actions.addPostAC('new text')
 
     let newState = profileReducer(state, action)
 

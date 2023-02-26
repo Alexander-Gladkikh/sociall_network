@@ -1,23 +1,14 @@
-import {applyMiddleware, combineReducers, createStore} from "redux";
-import {addPostAC, profileReducer, savePhotoSuccess, setStatus, setUsersProfile} from "./profile-reducer";
-import {sendMessageCreator, dialogsReducer} from "./dialogs-reducer";
+import {Action, applyMiddleware, combineReducers, createStore} from "redux";
+import {profileReducer} from "./profile-reducer";
+import {dialogsReducer} from "./dialogs-reducer";
 import {navbarReducer} from "./sidebar-reducer";
 import {
     usersReducer
 } from "./users-reducer";
-import {authReducer, getCaptchaUrlSuccess, setAuthUserData} from "./auth-reducer";
-import thunkMiddleware from "redux-thunk";
+import {authReducer} from "./auth-reducer";
+import thunkMiddleware, {ThunkAction} from "redux-thunk";
 import {reducer as formReducer} from 'redux-form'
-import appReducer, {initializedSuccess} from "./app-reducer";
-
-export type ActionsTypes = ReturnType<typeof addPostAC>
-    | ReturnType<typeof sendMessageCreator>
-    | ReturnType<typeof setUsersProfile>
-    | ReturnType<typeof setAuthUserData>
-    | ReturnType<typeof setStatus>
-    | ReturnType<typeof savePhotoSuccess>
-    | ReturnType<typeof getCaptchaUrlSuccess>
-
+import appReducer from "./app-reducer";
 
 export const rootReducer = combineReducers({
     profilePage: profileReducer,
@@ -32,6 +23,8 @@ export const rootReducer = combineReducers({
 type PropertiesTypes<T> = T extends {[key: string]: infer U} ? U : never
 
 export type InferActionsType<T extends {[key: string]: (...args: any[]) => any}> = ReturnType<PropertiesTypes<T>>
+
+export type BaseThunkType<A extends Action, R = Promise<void>> = ThunkAction<R, AppStateType, unknown, A>
 
 export type AppStateType = ReturnType<typeof rootReducer>
 

@@ -1,12 +1,5 @@
-import {ActionsTypes} from "./redux-store";
+import {InferActionsType} from "./redux-store";
 
-const SEND_MESSAGE = "SEND-MESSAGE"
-
-export type DialogsPageType = {
-    messages: MessagesType[]
-    dialogs: DialogsType[]
-    isAuth?: boolean
-}
 export type DialogsType = {
     id: string
     name: string
@@ -16,12 +9,12 @@ export type MessagesType = {
     message: string
 }
 
-let initialState: DialogsPageType = {
+let initialState = {
     messages: [
         {id: 1, message: 'Hi'},
         {id: 2, message: 'How is your it-kamasutra'},
         {id: 3, message: 'Yo'},
-    ],
+    ] as Array<MessagesType>,
     dialogs: [
         {id: '1', name: 'Dimych'},
         {id: '2', name: 'Andrey'},
@@ -29,12 +22,13 @@ let initialState: DialogsPageType = {
         {id: '4', name: 'Sasha'},
         {id: '5', name: 'Victor'},
         {id: '6', name: 'Valera'},
-    ],
+    ] as Array<DialogsType>,
+
 }
 
-export const dialogsReducer = (state: DialogsPageType = initialState, action: ActionsTypes): DialogsPageType => {
+export const dialogsReducer = (state = initialState, action: ActionsType): InitialState => {
     switch (action.type) {
-        case "SEND-MESSAGE":
+        case "SN/DIALOGS/SEND-MESSAGE":
             let newMessage: MessagesType = {
                 id: new Date().getTime(),
                 message: action.newMessageBody
@@ -52,16 +46,18 @@ export const dialogsReducer = (state: DialogsPageType = initialState, action: Ac
 
 }
 
-type SendMessageCreatorActionType = {
-    type: typeof SEND_MESSAGE
-    newMessageBody: string
+export const actions = {
+    sendMessageCreator:  (newMessageBody: string) => {
+        return {
+            type: "SN/DIALOGS/SEND-MESSAGE",
+            newMessageBody
+        } as const
+    }
 }
-export const sendMessageCreator = (newMessageBody: string): SendMessageCreatorActionType => {
-    return {
-        type: "SEND-MESSAGE",
-        newMessageBody
-    } as const
-}
+
+type InitialState = typeof initialState
+type ActionsType = InferActionsType<typeof actions>
+
 
 
 
