@@ -9,7 +9,6 @@ let initialState= {
         {id: 1, message: 'Hi, how are yuo?', countLike: 15},
         {id: 2, message: 'It\'s my first post', countLike: 20},
     ] as PostsType[],
-    newPostText: '',
     profile: null as ProfileType | null,
     status: ''
 }
@@ -25,7 +24,6 @@ export const profileReducer = (state = initialState, action: ActionsType): Initi
             return {
                 ...state,
                 posts: [...state.posts, newPost],
-                newPostText: ''
             }
             case "'SN/PROFILE/SET-USERS-PROFILE'":
             return {

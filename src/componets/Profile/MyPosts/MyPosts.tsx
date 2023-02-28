@@ -4,15 +4,16 @@ import {Posts} from "./Post/Post";
 import {PostsType} from "../../../types/types";
 import {AddPostFormReduxForm, AddPostFormValuesType} from "./AddPostForm";
 
-
-type PropsType = {
-    addPost: (newPostText: string) => void
+export type MapPropsType = {
     posts: PostsType[]
 }
 
+export type MapDispatchType = {
+    addPost: (newPostText: string) => void
+}
 
 
-export const MyPosts: React.FC<PropsType> = (props) => {
+export const MyPosts: React.FC<MapPropsType & MapDispatchType> = (props) => {
     const postsElement = [...props.posts]
         .reverse()
         .map((p) => <Posts key={p.id} message={p.message} countLike={p.countLike}/>)

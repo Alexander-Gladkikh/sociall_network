@@ -3,16 +3,10 @@ import {Profile} from "./Profile";
 import {connect} from "react-redux";
 import {getStatus, getUserProfile, savePhoto, saveProfile, updateStatus} from "../../redux/profile-reducer";
 import {AppStateType} from "../../redux/redux-store";
-import {
-    useLocation,
-    useNavigate,
-    useParams,
-} from "react-router-dom";
+import {useLocation, useNavigate, useParams,} from "react-router-dom";
 import {compose} from "redux";
 
-
 class ProfileContainer extends React.Component<any> {
-
     refreshProfile() {
         let profileId = this.props.router.params.profileId
         if (!profileId) {
@@ -33,23 +27,21 @@ class ProfileContainer extends React.Component<any> {
         if (this.props.router.params.profileId != prevProps.router.params.profileId) {
             this.refreshProfile()
         }
-
     }
 
     render() {
-
         return <div>
             <Profile {...this.props}
-                isOwner={!this.props.router.params.profileId}
+                     isOwner={!this.props.router.params.userId}
                      profile={this.props.profile}
                      status={this.props.status}
                      updateStatus={this.props.updateStatus}
-            savePhoto={this.props.savePhoto}
+                     savePhoto={this.props.savePhoto}
+                     saveProfile={this.props.saveProfile}
             />
         </div>
     }
 }
-
 
 const mapStateToProps = (state: AppStateType) => {
     return {
@@ -76,8 +68,6 @@ export function withRouter(Component: any) {
 
     return ComponentWithRouterProp;
 }
-
-//setUsersProfile
 
 export default connect(mapStateToProps, {getUserProfile, getStatus, updateStatus, savePhoto, saveProfile})(compose(
     withRouter,

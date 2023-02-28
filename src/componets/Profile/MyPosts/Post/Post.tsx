@@ -6,7 +6,7 @@ export type PostPropsType = {
     countLike: number
 }
 
-export const Posts = (props: PostPropsType) => {
+export const Posts: React.FC<PostPropsType> = (props) => {
     return (
         <>
             <div className={s.item}>

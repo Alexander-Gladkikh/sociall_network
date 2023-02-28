@@ -8,7 +8,7 @@ import {ContactsType, ProfileType} from "../../../types/types";
 
 
 type PropsType = {
-    profile: ProfileType
+    profile: ProfileType | null
     status: string
     updateStatus: (status:  string) => void
     isOwner: boolean
@@ -24,7 +24,7 @@ const [editMode, setEditMode] = useState<boolean>(false)
     }
 
     const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files?.length) {
+        if (e.target.files && e.target.files.length) {
             savePhoto(e.target.files[0])
         }
     }
@@ -44,7 +44,7 @@ const [editMode, setEditMode] = useState<boolean>(false)
                 {isOwner && <input type={'file'} onChange={onMainPhotoSelected}/>}
 
                 {editMode
-                    ? <ProfileDataFormReduxForm initialValues={profile} onSubmit={onSubmit}/>
+                    ? <ProfileDataFormReduxForm initialValues={profile} onSubmit={onSubmit} profile={profile}/>
                     : <ProfileData goToEditMode={() => setEditMode(true)} profile={profile} isOwner={isOwner}/>}
 
                 <ProfileStatusWidthHooks status={status} updateStatus={updateStatus}/>
