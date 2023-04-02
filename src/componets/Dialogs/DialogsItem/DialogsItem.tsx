@@ -3,7 +3,7 @@ import s from './../Dialogs.module.css'
 import {NavLink} from "react-router-dom";
 
 type PropsType = {
-    id: number
+    id: string
     name: string
 }
 export const DialogItem: React.FC<PropsType> = (props) => {
