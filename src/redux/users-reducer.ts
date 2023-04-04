@@ -8,13 +8,18 @@ import {APIResponseType} from "../api/api";
 let initialState = {
   users: [] as Array<UserType>,
   pageSize: 10,
-  totalUsersCount: 500, // нужно 0
+  totalUsersCount: 0, // нужно 0
   currentPage: 1,
   isFetching: false,
-  followingInProgress: [] as Array<number>
+  followingInProgress: [] as Array<number>,
+  filter: {
+    term: '',
+    friend: null as null | boolean
+  }
 }
 
 export type InitialStateType = typeof initialState
+export type FilterType = typeof initialState.filter
 export const usersReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
   switch (action.type) {
     case 'SN/USERS/FOLLOW':
@@ -31,6 +36,11 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
       return {
         ...state,
         users: [...action.users]
+      }
+      case 'SN/USERS/SET-FILTER-USER':
+      return {
+        ...state,
+        filter: action.payload
       }
     case "SN/USERS/SET-CURRENT-PAGE":
       return {...state, currentPage: action.currentPage}
@@ -80,6 +90,12 @@ export const actions = {
       currentPage
     } as const
   },
+  setFilter: (filter: FilterType) => {
+    return {
+      type: 'SN/USERS/SET-FILTER-USER',
+      payload: filter
+    } as const
+  },
   setTotalUserCount: (count: number) => {
     return {
       type: 'SN/USERS/SET-TOTAL-USER-COUNT',
@@ -103,14 +119,16 @@ export const actions = {
 type DispatchType = Dispatch<ActionsTypes>
 type ThunkType = BaseThunkType<ActionsTypes>
 
-export const requestUsers = (page: number, pageSize: number): ThunkType => {
+export const requestUsers = (page: number, pageSize: number, filter: FilterType): ThunkType => {
   return async (dispatch) => {
     dispatch(actions.toggleIsFetching(true));
     dispatch(actions.setCurrentPage(page))
+    dispatch(actions.setFilter(filter))
 
-    const data = await usersAPI.getUsers(page, pageSize)
-    dispatch(actions.setUsers(data.items))
+    const data = await usersAPI.getUsers(page, pageSize, filter.term, filter.friend)
     dispatch(actions.toggleIsFetching(false))
+    dispatch(actions.setUsers(data.items))
+    dispatch(actions.setTotalUserCount(data.totalCount))
   }
 }
 
