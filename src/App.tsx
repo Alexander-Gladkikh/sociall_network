@@ -4,7 +4,7 @@ import {Route, Routes} from "react-router-dom";
 import {Music} from "./componets/Music/Music";
 import {Settings} from "./componets/Settings/Settings";
 import NavbarContainer from "./componets/Navbar/NavbarContainer";
-import UsersContainer from "./componets/Users/UsersContainer";
+import {UsersPage} from "./componets/Users/UsersContainer";
 import {withRouter} from "./componets/Profile/ProfileContainer";
 import HeaderContainer from "./componets/Header/HeaderContainer";
 import LoginPage from "./componets/login/Login";
@@ -52,7 +52,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
                             <Routes>
                                 <Route path="/profile/:profileId" element={<ProfileContainer/>}/>
                                 <Route path="/dialogs/*" element={<DialogsContainer/>}/>
-                                <Route path="/users/*" element={<UsersContainer/>}/>
+                                <Route path="/users/*" element={<UsersPage/>}/>
                                 <Route path='/music/*' element={<Music/>}/>
                                 <Route path='/settings/*' element={<Settings/>}/>
                                 <Route path='/profile' element={<ProfileContainer/>}/>

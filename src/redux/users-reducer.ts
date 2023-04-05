@@ -63,8 +63,6 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
 
 }
 
-type ActionsTypes = InferActionsType<typeof actions>
-
 export const actions = {
   followSuccess: (userId: number) => {
     return {
@@ -116,8 +114,7 @@ export const actions = {
   }
 }
 
-type DispatchType = Dispatch<ActionsTypes>
-type ThunkType = BaseThunkType<ActionsTypes>
+
 
 export const requestUsers = (page: number, pageSize: number, filter: FilterType): ThunkType => {
   return async (dispatch) => {
@@ -158,6 +155,10 @@ export const unfollow = (userId: number): ThunkType => {
     await _followUnfollowFlow(dispatch, userId, apiMethod, actions.unfollowSuccess)
   }
 }
+
+type ActionsTypes = InferActionsType<typeof actions>
+type DispatchType = Dispatch<ActionsTypes>
+type ThunkType = BaseThunkType<ActionsTypes>
 
 
 
