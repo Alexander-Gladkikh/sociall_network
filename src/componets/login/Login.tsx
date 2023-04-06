@@ -6,7 +6,7 @@ import {connect} from "react-redux";
 import {login} from "../../redux/auth-reducer";
 import {Navigate} from "react-router-dom";
 import style from '../common/FormsControls/FormsControls.module.css'
-import {AppStateType} from "../../redux/redux-store";
+import {RootState} from "../../redux/redux-store";
 
 type LoginFormOwnProps = {
     captchaUrl: string | null
@@ -74,7 +74,7 @@ const Login: React.FC<MapStateToPropsType & MapDispatchToPropsType> = (props) =>
     );
 };
 
-const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
+const mapStateToProps = (state: RootState): MapStateToPropsType => ({
     captchaUrl: state.auth.captchaUrl,
     isAuth: state.auth.isAuth
 })

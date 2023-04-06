@@ -1,9 +1,9 @@
 import {Navigate} from "react-router-dom";
 import React from "react";
 import {connect} from "react-redux";
-import {AppStateType} from "../redux/redux-store";
+import {RootState} from "../redux/redux-store";
 
-const mapStateToPropsForRedirect = (state: AppStateType)  => {
+const mapStateToPropsForRedirect = (state: RootState)  => {
     return {
         isAuth: state.auth.isAuth
     }
@@ -25,7 +25,7 @@ export function widthAuthRedirect <WCP>(WrappedComponent: React.ComponentType<WC
 
     }
 
-    let ConnectedAuthRedirectComponent = connect<MapPropsType, {}, WCP, AppStateType>
+    let ConnectedAuthRedirectComponent = connect<MapPropsType, {}, WCP, RootState>
     (mapStateToPropsForRedirect)(RedirectComponent)
     return RedirectComponent
 }

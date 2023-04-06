@@ -12,7 +12,7 @@ import {connect} from "react-redux";
 import {compose} from "redux";
 import {initializeApp} from "./redux/app-reducer";
 import {Preloader} from "./componets/common/preloader/Preloader";
-import {AppStateType} from "./redux/redux-store";
+import {RootState} from "./redux/redux-store";
 
 
 const DialogsContainer = lazy(() => import('./componets/Dialogs/DialogsContainer'));
@@ -65,7 +65,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
     }
 }
 
-const mapStateToProps = (state: AppStateType) => ({
+const mapStateToProps = (state: RootState) => ({
     initialized: state.app.initialized
 })
 

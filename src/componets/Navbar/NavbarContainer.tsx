@@ -1,10 +1,10 @@
 import React from "react";
 import {connect} from "react-redux";
-import {AppStateType} from "../../redux/redux-store";
+import {RootState} from "../../redux/redux-store";
 import {Navbar} from "./Navbar";
 
 
-const MapStateToProps = (state: AppStateType) => {
+const MapStateToProps = (state: RootState) => {
     return {
         friends: state.navBarPage.friends,
         titlePage: state.navBarPage.titlePage
