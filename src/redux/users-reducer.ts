@@ -1,6 +1,6 @@
 import {UserType} from "../types/types";
 import {Dispatch} from "redux";
-import {BaseThunkType, InferActionsType} from "./redux-store";
+import {AppThunk, BaseThunkType, InferActionsType} from "./redux-store";
 import {usersAPI} from "../api/usersAPI";
 import {updateObjectInArray} from "../utils/objects-helpers";
 import {APIResponseType} from "../api/api";
@@ -116,8 +116,8 @@ export const actions = {
 
 
 
-export const requestUsers = (page: number, pageSize: number, filter: FilterType): ThunkType => {
-  return async (dispatch) => {
+export const requestUsers = (page: number, pageSize: number, filter: FilterType): AppThunk =>
+   async dispatch => {
     dispatch(actions.toggleIsFetching(true));
     dispatch(actions.setCurrentPage(page))
     dispatch(actions.setFilter(filter))
@@ -127,7 +127,7 @@ export const requestUsers = (page: number, pageSize: number, filter: FilterType)
     dispatch(actions.setUsers(data.items))
     dispatch(actions.setTotalUserCount(data.totalCount))
   }
-}
+
 
 const _followUnfollowFlow = async (dispatch: DispatchType,
                                    userId: number,
@@ -141,24 +141,17 @@ const _followUnfollowFlow = async (dispatch: DispatchType,
   dispatch(actions.toggleFollowingProgress(false, userId));
 }
 
-export const follow = (userId: number): ThunkType => {
-  return async (dispatch) => {
-    const apiMethod = usersAPI.follow.bind(userId)
-    await _followUnfollowFlow(dispatch, userId, apiMethod, actions.followSuccess)
-
+export const follow = (userId: number): AppThunk => async dispatch => {
+     await _followUnfollowFlow(dispatch, userId, usersAPI.follow.bind(userId), actions.followSuccess)
   }
-}
 
-export const unfollow = (userId: number): ThunkType => {
-  return async (dispatch) => {
-    let apiMethod = usersAPI.unfollow.bind(userId)
-    await _followUnfollowFlow(dispatch, userId, apiMethod, actions.unfollowSuccess)
+export const unfollow = (userId: number): AppThunk => async dispatch => {
+     await _followUnfollowFlow(dispatch, userId, usersAPI.unfollow.bind(userId), actions.unfollowSuccess)
   }
-}
 
-type ActionsTypes = InferActionsType<typeof actions>
+
+export type ActionsTypes = InferActionsType<typeof actions>
 type DispatchType = Dispatch<ActionsTypes>
-type ThunkType = BaseThunkType<ActionsTypes>
 
 
 
