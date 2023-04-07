@@ -13,6 +13,7 @@ import {
   getUsers
 } from "../../redux/users-selectors";
 import {useAppDispatch} from "../../hook/hook";
+import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
 
 type PropsType = {}
 
@@ -24,10 +25,24 @@ export const Users: React.FC<PropsType> = (props) => {
   const totalUsersCount = useSelector(getTotalUsersCount)
   const filter = useSelector(getFilterSearch)
 
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  useEffect(() => {
+    setSearchParams({term: filter.term, friend: String(filter.friend), page: String(currentPage)})
+  }, [filter, currentPage])
+
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    dispatch(requestUsers(currentPage, pageSize, filter))
+    const actualTerm = searchParams.get('term')
+    const actualFriend = searchParams.get('friend')
+    const actualPage = searchParams.get('page')
+    const startFilter =  {
+      term: actualTerm,
+      friend: actualFriend
+    }
+    const startPage = Number(actualPage)
+    dispatch(requestUsers(startPage, pageSize, startFilter as any))
   }, [])
 
   const onPageChanged = (pageNumber: number) => {
