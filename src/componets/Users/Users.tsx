@@ -41,7 +41,9 @@ export const Users: React.FC<PropsType> = (props) => {
       term: actualTerm,
       friend: actualFriend
     }
-    const startPage = Number(actualPage)
+    let startPage
+    Number(actualPage) === 0 ? startPage = 1 : startPage = Number(actualPage)
+    actualTerm === null ? startFilter.term = '' : startFilter.term = actualTerm
     dispatch(requestUsers(startPage, pageSize, startFilter as any))
   }, [])
 
