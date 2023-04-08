@@ -20,6 +20,7 @@ const {Content, Sider} = Layout;
 
 const DialogsContainer = lazy(() => import('./componets/Dialogs/DialogsContainer'));
 const ProfileContainer = lazy(() => import('./componets/Profile/ProfileContainer'));
+const ChatPage = lazy(() => import('./componets/pages/Chat/ChatPage'));
 
 
 type MapPropsType = ReturnType<typeof mapStateToProps>
@@ -66,6 +67,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
               </SubMenu>
               <SubMenu key='sub2' icon={<UserOutlined/>} title='Developers'>
                 <Menu.Item key='3'><Link to='/users'>Developers</Link></Menu.Item>
+                <Menu.Item key='3'><Link to='/chat'>Chat</Link></Menu.Item>
 
               </SubMenu>
             </Menu>
@@ -93,29 +95,13 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
                   <Route path='/settings/*' element={<Settings/>}/>
                   <Route path='/profile' element={<ProfileContainer/>}/>
                   <Route path='/login' element={<Login/>}/>
+                  <Route path='/chat' element={<ChatPage/>}/>
                 </Routes>
               </Suspense>
             </Content>
           </Layout>
         </Layout>
       </Layout>
-      // <div className={'app-wrapper'}>
-      //     <HeaderContainer/>
-      //     <NavbarContainer/>
-      //     <div className={'app-wrapper-content'}>
-      //         <Suspense fallback={<div>Loading...</div>}>
-      //             <Routes>
-      //                 <Route path="/profile/:profileId" element={<ProfileContainer/>}/>
-      //                 <Route path="/dialogs/*" element={<DialogsContainer/>}/>
-      //                 <Route path="/users/*" element={<UsersPage/>}/>
-      //                 <Route path='/music/*' element={<Music/>}/>
-      //                 <Route path='/settings/*' element={<Settings/>}/>
-      //                 <Route path='/profile' element={<ProfileContainer/>}/>
-      //                 <Route path='/login' element={<Login/>}/>
-      //             </Routes>
-      //         </Suspense>
-      //     </div>
-      // </div>
     );
   }
 }
