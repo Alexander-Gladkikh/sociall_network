@@ -6,6 +6,7 @@ import {ResultCodeForCaptcha, ResultCodes} from "../api/api";
 import {chatApi, ChatMessageType, StatusType} from "../api/chat-api";
 import {message} from "antd";
 import {Dispatch} from "redux";
+import {v1} from 'uuid';
 
 let initialState = {
   messages: [] as ChatMessageType[],
@@ -19,9 +20,10 @@ export const chatReducer = (state = initialState, action: ActionsType): InitialS
     case "SN/chat/MESSAGE_RECEIVED":
       return {
         ...state,
-        messages: [...state.messages, ...action.payload]
+        messages: [...state.messages, ...action.payload.map(m => {...m, id: v1()})]
+          .filter((m, index, array) => index >= array.length - 100)
       }
-      case "SN/chat/STATUS_CHANGED":
+    case "SN/chat/STATUS_CHANGED":
       return {
         ...state,
         status: action.payload.status
@@ -56,7 +58,7 @@ let _newStatusChangedHandler: ((status: StatusType) => void) | null = null
 
 const statusChangedHandlerCreator = (dispatch: Dispatch) => {
   if (_newStatusChangedHandler === null) {
-    _newStatusChangedHandler = (status:StatusType) => {
+    _newStatusChangedHandler = (status: StatusType) => {
       dispatch(actions.statusChanged(status))
     }
   }
